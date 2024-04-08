@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1 class="text-center lg-5 display">S'inscrire</h1>
+    
+    <div class="container">
+        <div class="row">{# pour définir une ligne horizontale #}
+            <div class="col-md-6">
+                <p class="text-center"></p>
+            </div>
+            <div class="col-md-6 mx-auto">{# correspond à 12 colonnes accessibles dans la ligne: 9 colonnes sur 12 pour une tablette, 6 colonnes sur 12 pour écrans larges / mx auto: centré parfaitement surl'axe des abscisses #}
+                {{ form_errors(registrationForm) }}
+
+                {{ form_start(registrationForm) }}
+                {# {{form_row(registrationForm.user) }}#}   {#nom d'utilisateur #}
+                    <div class="mb-3">
+                        <label for="registration_form_prenom">Prénom</label>
+                        {{ form_widget(registrationForm.prenom, {'attr': {'class': 'form-control'}}) }} {# mail utilisateur #}
+                    </div>
+                    <div class="mb-3">
+                        <label for="registration_form_nom">Nom</label>
+                        {{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control'}}) }} {# mail utilisateur #}
+                    </div>
+                    <div class="mb-3">
+                        <label for="registration_form_email">Email</label>
+                        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }} {# mail utilisateur #}
+                    </div>
+                    <div class="mb-3">
+                        <label for="registration_form_telephone">Téléphone</label>
+                        {{ form_widget(registrationForm.numDeTel, {'attr': {'class': 'form-control'}}) }} {# mail utilisateur #}
+                    </div>
+                    <div class="mb-3">
+                        <label for="registration_form_password_first">Mot de passe</label>
+                        {{ form_widget(registrationForm.password.first, {'attr': {'class': 'form-control'}}) }} {# mail utilisateur #}
+                    </div>
+                    <div class="mb-3">
+                        <label for="registration_form_password_second">Confirmation  du mot de passe</label>
+                        {{ form_widget(registrationForm.password.second, {'attr': {'class': 'form-control'}}) }} {# mail utilisateur #}
+                    </div>
+                    <div class="mb-3">
+                        <label for="registration_form_agreeTerms">
+                            {{ form_widget(registrationForm.agreeTerms) }}
+                            Lire et accepter <a href="#" data-bs-toggle="modal" data-bs-target="#agreeTermsModal">les conditions générales d'utilisation</a>
+                        </label>
+                        <!-- Modal -->
+                        <div class="modal fade" id="agreeTermsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Lire les conditions générales d'utilisation</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500</p>
+                                        <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500</p>
+                                        <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fermer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Enregistrer</button> {# bouton enregistrer #}
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

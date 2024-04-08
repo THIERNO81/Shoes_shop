@@ -1,0 +1,51 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Gestion des produits{% endblock %}
+
+{% block main %}
+    <h1>Gestion des produits</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NomProduit</th>
+                <th>DescriptionProduit</th>
+                <th>PrixProduit</th>
+                <th>StockDispo</th>
+                <th>Taille</th>
+                <th>Image</th>
+                <th>actions</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td>{{ produit.id }}</td>
+                <td>{{ produit.NomProduit }}</td>
+                <td>{{ produit.DescriptionProduit }}</td>
+                <td>{{ produit.PrixProduit }}</td>
+                <td>{{ produit.StockDispo }}</td>
+                <td>{{ produit.Taille }}</td>
+                <td>
+                    <img src="{{ vich_uploader_asset(produit, 'imageFile') }}" alt="{{produit.NomProduit}}" width="200" height="200">
+                </td>
+                <td>
+                    <a class="btn btn-secondary" href="{{ path('admin_produit_edit', {'id': produit.id}) }}">Modifier</a>
+                    <form class="d-inline" method="POST" action="{{path('admin_produit_delete', {'id': produit.id})}}">
+                        <input type="hidden" name="_token" value="{{csrf_token('delete'~produit.id)}}">
+                        <input type="submit" class="btn btn-danger" value="Supprimer">
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-success" href="{{ path('admin_produit_new') }}">Ajouter un nouveau produit</a>
+{% endblock %}

@@ -3,222 +3,143 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[UniqueEntity(fields: ['email'], message: 'cette addresse mail est déjà utilisée')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $NomUser = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $PrenomUser = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $EmailUser = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $MotDePasseUser = null;
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $email = null;
 
     #[ORM\Column]
-    private ?int $NumDeTelUser = null;
+    private array $roles = [];
 
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Commande::class)]
-    private Collection $Commande;
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?AdresseFacturation $AdresseFacturation = null;
+    #[ORM\Column(length: 255)]
+    private ?string $prenom = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: AdresseLivraison::class)]
-    private Collection $AdresseLivraison;
-
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Avis::class)]
-    private Collection $Avis;
-
-    public function __construct()
-    {
-      
-        $this->Commande = new ArrayCollection();
-        $this->AdresseLivraison = new ArrayCollection();
-        $this->Avis = new ArrayCollection();
-    }
+    #[ORM\Column]
+    private ?int $numDeTel = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNomUser(): ?string
+    public function getEmail(): ?string
     {
-        return $this->NomUser;
+        return $this->email;
     }
 
-    public function setNomUser(string $NomUser): static
+    public function setEmail(string $email): static
     {
-        $this->NomUser = $NomUser;
-
-        return $this;
-    }
-
-    public function getPrenomUser(): ?string
-    {
-        return $this->PrenomUser;
-    }
-
-    public function setPrenomUser(string $PrenomUser): static
-    {
-        $this->PrenomUser = $PrenomUser;
-
-        return $this;
-    }
-
-    public function getEmailUser(): ?string
-    {
-        return $this->EmailUser;
-    }
-
-    public function setEmailUser(string $EmailUser): static
-    {
-        $this->EmailUser = $EmailUser;
-
-        return $this;
-    }
-
-    public function getMotDePasseUser(): ?string
-    {
-        return $this->MotDePasseUser;
-    }
-
-    public function setMotDePasseUser(string $MotDePasseUser): static
-    {
-        $this->MotDePasseUser = $MotDePasseUser;
-
-        return $this;
-    }
-
-    public function getNumDeTelUser(): ?int
-    {
-        return $this->NumDeTelUser;
-    }
-
-    public function setNumDeTelUser(int $NumDeTelUser): static
-    {
-        $this->NumDeTelUser = $NumDeTelUser;
+        $this->email = $email;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Produit>
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
      */
-    
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
 
     /**
-     * @return Collection<int, Commande>
+     * @see UserInterface
      */
-    public function getCommande(): Collection
+    public function getRoles(): array
     {
-        return $this->Commande;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
-    public function addCommande(Commande $commande): static
+    public function setRoles(array $roles): static
     {
-        if (!$this->Commande->contains($commande)) {
-            $this->Commande->add($commande);
-            $commande->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommande(Commande $commande): static
-    {
-        if ($this->Commande->removeElement($commande)) {
-            // set the owning side to null (unless already changed)
-            if ($commande->getUser() === $this) {
-                $commande->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getAdresseFacturation(): ?AdresseFacturation
-    {
-        return $this->AdresseFacturation;
-    }
-
-    public function setAdresseFacturation(?AdresseFacturation $AdresseFacturation): static
-    {
-        $this->AdresseFacturation = $AdresseFacturation;
+        $this->roles = $roles;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, AdresseLivraison>
+     * @see PasswordAuthenticatedUserInterface
      */
-    public function getAdresseLivraison(): Collection
+    public function getPassword(): string
     {
-        return $this->AdresseLivraison;
+        return $this->password;
     }
 
-    public function addAdresseLivraison(AdresseLivraison $adresseLivraison): static
+    public function setPassword(string $password): static
     {
-        if (!$this->AdresseLivraison->contains($adresseLivraison)) {
-            $this->AdresseLivraison->add($adresseLivraison);
-            $adresseLivraison->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAdresseLivraison(AdresseLivraison $adresseLivraison): static
-    {
-        if ($this->AdresseLivraison->removeElement($adresseLivraison)) {
-            // set the owning side to null (unless already changed)
-            if ($adresseLivraison->getUser() === $this) {
-                $adresseLivraison->setUser(null);
-            }
-        }
+        $this->password = $password;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Avis>
+     * @see UserInterface
      */
-    public function getAvis(): Collection
+    public function eraseCredentials(): void
     {
-        return $this->Avis;
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
-    public function addAvi(Avis $avi): static
+    public function getNom(): ?string
     {
-        if (!$this->Avis->contains($avi)) {
-            $this->Avis->add($avi);
-            $avi->setUser($this);
-        }
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
 
         return $this;
     }
 
-    public function removeAvi(Avis $avi): static
+    public function getPrenom(): ?string
     {
-        if ($this->Avis->removeElement($avi)) {
-            // set the owning side to null (unless already changed)
-            if ($avi->getUser() === $this) {
-                $avi->setUser(null);
-            }
-        }
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): static
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getNumDeTel(): ?int
+    {
+        return $this->numDeTel;
+    }
+
+    public function setNumDeTel(int $numDeTel): static
+    {
+        $this->numDeTel = $numDeTel;
 
         return $this;
     }

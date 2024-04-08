@@ -1,0 +1,15 @@
+.navbar-nav li{
+    margin-right: 50px; 
+}
+.nav-bg{
+    background-color: #E3AAC3;
+}
+
+/* .imagePath {
+    width: 100px;
+    height: auto;
+} */
+
+.nav-item{
+    font-weight: bold; /* Appliquer le style en gras */
+}

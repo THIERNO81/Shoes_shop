@@ -1,0 +1,32 @@
+{{ form_start(form) }}
+    <div class="mb-3">
+        <label for="produit_NomProduit">Nom du produit</label>
+        {{form_widget(form.NomProduit, {'attr': {'class':'form-control', 'autofocus':'autofocus'}})}}
+    </div>
+    <div class="mb-3">
+        <label for="produit_DescriptionProduit">Description du produit</label>
+        {{form_widget(form.DescriptionProduit, {'attr': {'class':'form-control', 'autofocus':'autofocus'}})}}
+    </div>
+    <div class="mb-3">
+        <label for="produit_PrixProduit">Prix du produit</label>
+        {{form_widget(form.PrixProduit, {'attr': {'class':'form-control'}})}}
+    </div>
+    
+        <div class="mb-3">
+        <label for="produit_StockDispo">Stock du produit</label>
+        {{form_widget(form.StockDispo, {'attr': {'class':'form-control'}})}}
+    </div>
+        
+    
+    <div class="mb-3">
+        <label for="produit_Taille">Taille du produit</label>
+        {{form_widget(form.Taille, {'attr': {'class':'form-control'}})}}
+    </div>
+    <div class="mb-3">
+        <label for="produit_imageFile_file">Image du produit</label>
+        {{form_widget(form.imageFile, {'attr': {'class':'form-control'}})}}
+    </div>
+    <div>
+        <button class="btn btn-info w-100">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+{{ form_end(form) }}
