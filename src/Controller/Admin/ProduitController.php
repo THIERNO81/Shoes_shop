@@ -1,20 +1,20 @@
 <?php
-namespace App\Controller\Admin;
 
+namespace App\Controller\Admin;
 
 use App\Entity\Produit;
 use App\Form\ProduitType;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/produit')]
 class ProduitController extends AbstractController
 {
-    #[Route('/', name: 'admin_produit_index', methods: ['GET'])]
+    #[Route('/index', name: 'admin_produit_index', methods: ['GET'])]
     public function index(ProduitRepository $produitRepository): Response
     {
         return $this->render('admin/produit/index.html.twig', [
@@ -63,8 +63,8 @@ class ProduitController extends AbstractController
         }
 
         return $this->render('admin/produit/edit.html.twig', [
+            'formProduit' => $form->createView(),
             'produit' => $produit,
-            'form' => $form,
         ]);
     }
 
@@ -77,5 +77,13 @@ class ProduitController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_produit_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/fiche', name: 'admin_produit_fiche', methods: ['GET'])]
+    public function fiche(Request $request, Produit $produit): Response
+    {
+        return $this->render('admin/produit/fiche.html.twig', [
+            'produit' => $produit,
+        ]);
     }
 }

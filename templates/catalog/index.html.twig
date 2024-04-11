@@ -1,16 +1,13 @@
-
-{# {{dump(produits)}} #}
-{% for produit in produits %}
-   <div class="col-lg-4 col-md-6">
-        <div class="card mb-4">
-            <div class="card-body">
-                <h1 class="card-title text-center">{{produit.NomProduit}}</h1>
-                <h2 class="PrixProduit text-center">{{produit.PrixProduit}}€</h2>
-                <img src="{{asset('images/products/' ~ produit.imagePath)}}" alt="" class="images50px">
+<div class="row">
+    {% for produit in produits %}
+        <div class="col-lg-4 col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h1 class="card-title text-center">{{ produit.NomProduit }}</h1>
+                    <h2 class="PrixProduit text-center">{{ produit.PrixProduit }}€</h2>
+                    <img src="{{ asset('images/products/' ~ produit.imagePath) }}" alt="" class="images 5px">
+                </div>
             </div>
         </div>
-   </div>
-
-
- 
-{% endfor %}
+    {% endfor %}
+</div>

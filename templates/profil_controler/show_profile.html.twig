@@ -1,0 +1,16 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+{% block body %}
+<div class="gris XS4 container">
+    <div class="col-xs4"><h1>Profil de{{ app.user.username }} {{ app.user.email }}</h1></div>
+    <div class="clo-xs1">Nom:</div>
+    <div class="clo-xs3">{{ app.user.username }}</div>
+    <div class="clo-xs1">Prénom:</div>
+    <div class="clo-xs3">{{ app.user.firstname }}</div>
+    <div class="clo-xs1">Email:</div>
+    <div class="clo-xs3">{{ app.user.email }}</div>
+</div>
+{% endblock %}

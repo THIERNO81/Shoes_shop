@@ -2,7 +2,7 @@
     margin-right: 50px; 
 }
 .nav-bg{
-    background-color: #E3AAC3;
+    background-color: #ffc107;
 }
 
 /* .imagePath {
@@ -12,4 +12,9 @@
 
 .nav-item{
     font-weight: bold; /* Appliquer le style en gras */
+    display: inline-block; /* Pour aligner les éléments horizontalement */
+    margin-right: 10px; /* Espacement entre les éléments */
 }
+
+
+  

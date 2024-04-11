@@ -1,0 +1,52 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block h1 %}{{ produit.nomProduit|capitalize }}{% endblock %}
+
+{% block body %}
+    <a class="btn btn-dark" href="{{ path('admin_public_produit_show') }}">Retour</a>
+
+    {# {{ dump(produit) }} #}
+
+    <table class="table table-hover mt-3">
+ <tr>
+    <th>Id</th>
+    <td>{{ produit.id }}</td>
+ </tr>
+
+ <tr>
+    <th>NomProduit</th>
+    <td>{{ produit.nomProduit }}</td>
+            </tr>
+
+            <tr>
+                <th>DescriptionProduit</th>
+                <td>
+                    {% if produit.descriptionProduit %}
+                        {{ produit.descriptionProduit }}
+                    {% else %}
+                        <span class="fst-italic text-danger">Non renseignée</span>
+                    {% endif %}
+                    
+                </td>
+            </tr>
+            <tr>
+                <th>PrixProduit</th>
+                <td>{{ produit.prixProduit }}</td>
+            </tr>
+            <tr>
+                <th>StockDispo</th>
+                <td>{{ produit.stockDispo }}</td>
+            </tr>
+            <tr>
+                <th>Taille</th>
+                <td>{{ produit.taille }}</td>
+            </tr>
+            <tr>
+                <th>ImagePath</th>
+                <td>{{ produit.imagePath }}</td>
+            </tr>
+
+    </table>
+{% endblock %}

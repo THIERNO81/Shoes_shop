@@ -1,26 +1,32 @@
 {{ form_start(form) }}
+
+
+{{ form_row(form.id) }} {# Affichage du champ 'id' #}
+
+
+
     <div class="mb-3">
-        <label for="produit_NomProduit">Nom du produit</label>
-        {{form_widget(form.NomProduit, {'attr': {'class':'form-control', 'autofocus':'autofocus'}})}}
+        <label for="produit_nomProduit">Nom du produit</label>
+        {{form_widget(form.nomProduit, {'attr': {'class':'form-control', 'autofocus':'autofocus'}})}}
     </div>
     <div class="mb-3">
-        <label for="produit_DescriptionProduit">Description du produit</label>
-        {{form_widget(form.DescriptionProduit, {'attr': {'class':'form-control', 'autofocus':'autofocus'}})}}
+        <label for="produit_descriptionProduit">Description du produit</label>
+        {{form_widget(form.descriptionProduit, {'attr': {'class':'form-control', 'autofocus':'autofocus'}})}}
     </div>
     <div class="mb-3">
-        <label for="produit_PrixProduit">Prix du produit</label>
-        {{form_widget(form.PrixProduit, {'attr': {'class':'form-control'}})}}
+        <label for="produit_prixProduit">Prix du produit</label>
+        {{form_widget(form.prixProduit, {'attr': {'class':'form-control'}})}}
     </div>
     
         <div class="mb-3">
-        <label for="produit_StockDispo">Stock du produit</label>
-        {{form_widget(form.StockDispo, {'attr': {'class':'form-control'}})}}
+        <label for="produit_stockDispo">Stock du produit</label>
+        {{form_widget(form.stockDispo, {'attr': {'class':'form-control'}})}}
     </div>
         
     
     <div class="mb-3">
-        <label for="produit_Taille">Taille du produit</label>
-        {{form_widget(form.Taille, {'attr': {'class':'form-control'}})}}
+        <label for="produit_taille">Taille du produit</label>
+        {{form_widget(form.taille, {'attr': {'class':'form-control'}})}}
     </div>
     <div class="mb-3">
         <label for="produit_imageFile_file">Image du produit</label>
