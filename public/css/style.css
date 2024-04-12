@@ -1,14 +1,9 @@
-.navbar-nav li{
-    margin-right: 50px; 
-}
+
 .nav-bg{
     background-color: #ffc107;
 }
 
-/* .imagePath {
-    width: 100px;
-    height: auto;
-} */
+
 
 .nav-item{
     font-weight: bold; /* Appliquer le style en gras */
@@ -16,5 +11,63 @@
     margin-right: 10px; /* Espacement entre les éléments */
 }
 
+.card-body{
+    padding: 3px; /* Réduire l'espace à l'intérieur de la carte */
+    font-size: 2px; /* Réduire la taille de la police */
+    background-color: #bbc1c7; /* Couleur de fond gris foncé en utilisant une valeur hexadécimale */
+}
 
-  
+.card-title {
+    font-size: 16px; /* Taille de la police réduite */
+    font-weight: bold; /* Texte en gras */
+    text-transform: uppercase; /* Texte en majuscule */
+}
+
+.PrixProduit {
+    font-size: 18px; /* Taille de la police */
+    font-weight: bold; /* Texte en gras */
+    color: #070707; /* Couleur du texte */
+    
+    border: 2px solid #343a40; /* Bordure de 2px solide avec une couleur foncée */
+    background-color: #ffc107; /* Couleur de fond */
+    padding: 10px 10px; /* Ajout d'un espace intérieur pour la lisibilité */
+    border-radius: 20px; /* Rayon de bordure pour créer une bordure ovale */
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5); /* Création de l'effet crénelé */
+    display: inline-block; /* Permet d'appliquer la bordure uniquement autour du texte */
+}
+
+
+    /* Styles spécifiques pour le footer */
+    .footer {
+        background-color: #f8f9fa; /* Couleur de fond */
+        padding: 20px 0; /* Ajouter de l'espace autour du contenu */
+        margin-top: 20px; /* Espace supplémentaire au-dessus du footer */
+    }
+
+    .footer .container {
+        text-align: center; /* Centrer le contenu */
+    }
+
+    .footer ul {
+        list-style: none; /* Supprimer les puces de la liste */
+        padding: 0;
+    }
+
+    .footer ul li {
+        margin-bottom: 10px; /* Espacement entre les éléments de la liste */
+    }
+
+    .social-icon {
+        color: #555; /* Couleur des icônes */
+        margin-right: 10px; /* Espacement entre les icônes */
+    }
+
+    /* Styles spécifiques pour les liens */
+    .footer a {
+        color: #555; /* Couleur des liens */
+        text-decoration: none; /* Supprimer le soulignement */
+    }
+
+    .footer a:hover {
+        color: #007bff; /* Couleur des liens au survol */
+    }
