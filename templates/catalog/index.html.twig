@@ -16,7 +16,7 @@
     <body>
       <nav class="navbar navbar-expand-lg nav-bg">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="{{path('app_welcome')}}">
           <img src="{{ asset('images/logoDooke.jpg') }}" alt="logoDooke.jpg" height="85">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,20 +25,20 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{{path('app_welcome')}}">Accueil</a>
+                  <a class="nav-link active" aria-current="page" href="{{ path('app_welcome') }}">Accueil</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{{path('app_catalog')}}">Produits</a>
+                  <a class="nav-link active" aria-current="page" href="{{ path('app_catalog') }}">Produits</a>
                 </li>
           
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{{ path ('contact_index')}}">Contact</a>
+                  <a class="nav-link active" aria-current="page" href="{{ path('contact_index') }}">Contact</a>
                 </li>
                              
               </ul>
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{path('app_panier')}}">Panier</a>
+                    <a class="nav-link" href="{{ path('panier_index') }}">Panier</a>
                 </li>
 
                 {% if app.user %}
@@ -79,38 +79,94 @@
         {%block h1 %}{% endblock %}</h1>
         {% block body %}{% endblock %}
       </main>
-<!-- Début du conteneur de grille Bootstrap -->
+ 
+ 
+    <!-- Début du conteneur de grille Bootstrap -->
 <div class="container-fluid">
 
     <h1 class="text-center my-3" style="background-color: #ccc; border: 2px solid #ffc107; padding: 10px;">Catalogue des produits</h1>
 
-
     <div class="row">
-        <!-- Début de la boucle pour chaque produit dans la liste 'produits' -->
+    {# <pre>
+      {{ dump(produits) }}
+    </pre> #}
+        <!-- Boucle sur les produits -->
         {% for produit in produits %}
-            <!-- Colonne Bootstrap pour la mise en page responsive -->
-            <div class="col-lg-3 col-md-6 mb-4"> <!-- Adapté pour rendre la grille plus responsive -->
-                <!-- Lien vers la fiche produit -->
-                <a href="{{ path('app_catalog', {id: produit.id}) }}" class="card-link">
-                    <!-- Carte Bootstrap pour chaque produit -->
-                    <div class="card">
-                        <!-- Corps de la carte contenant les détails du produit -->
-                        <div class="card-body">
-                            <!-- Titre du produit, centré horizontalement -->
-                            <h2 class="card-title text-center">{{ produit.NomProduit | upper }}</h2> <!-- Utilisation de h2 pour le titre -->
-                            <!-- Prix du produit, centré horizontalement -->
-                            <h3 class="text-center PrixProduit">{{ produit.PrixProduit }}€</h3> <!-- Utilisation de h3 pour le prix -->
-                            <!-- Image du produit, provenant du répertoire 'images/products/' -->
-                            <img src="{{ asset('images/products/' ~ produit.imagePath) }}" alt="" class="img-fluid rounded mx-auto d-block" style="box-shadow : 2px 2px 6px;"> <!-- Ajout de classes Bootstrap pour l'image -->
-                        </div>
-                    </div>
-                </a>
+        <div class="col-sm-12 col-md-6 col-lg-4 mt-4"> <!-- Adapté pour rendre la grille plus responsive -->
+            <!-- Carte Bootstrap pour chaque produit -->
+            <div class="card mb-3">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="{{ asset('images/products/' ~ produit.imagePath) }}" alt="" class="img-fluid rounded mx-auto d-block" style="max-width: 100%; height: auto; box-shadow : 2px 2px 6px; cursor: pointer;" onclick="window.location.href='{{ path('app_catalog', {id: produit.id}) }}">
+                </div>
+              <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{ produit.NomProduit | upper }}</h5>
+                <h3 class="card-text h5 mt-auto"><strong>{{ produit.PrixProduit }}€</strong></h3>
+                <h2 class="d-flex justify-content-between align-item-center">{{ produit.descriptionProduit | lower }}</h2> 
+
+                
+
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Voir details produits
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  ...
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                  <button type="button" class="btn btn-primary">Compris</button>
+                </div>
+              </div>
             </div>
-        {% endfor %} <!-- Fin de la boucle -->
-    </div> <!-- Fin de la rangée -->
-</div> <!-- Fin du conteneur de grille Bootstrap -->
+          </div>
+                 {# <a href="{{path('app_show')}}" class="btn btn-dark">View details</a> #}
+      
+                <!-- Sélection pour choisir la pointure -->
+         <div class="mb-3">
+            <label for="pointure">Pointure:</label>
+              <select class="form-select" id="pointure" name="pointure">
+                 <option value="39">39</option>
+                 <option value="41">41</option>
+                 <option value="42">42</option>
+                 <option value="43">43</option>
+                        <!-- Ajoutez plus d'options de pointure au besoin -->
+                    </select>
+         </div>
 
+                <!-- Sélection pour choisir la couleur -->
+         <div class="mb-3">
+                    <label for="couleur">Couleur:</label>
+                    <div class="btn-group" role="group" aria-label="Choisir la couleur">
+                        <button type="radio" name="sameName" class="btn btn-primary">Bleu</button>
+                        <button type="radio"name="sameName" class="btn btn-secondary">Gris</button>
+                        <button type="radio" name="sameName"class="btn btn-success">Vert</button>
+                        <!-- Ajoutez plus de boutons pour d'autres couleurs au besoin -->
+                    </div>
+                </div>
 
+                <!-- Bouton pour ajouter au panier -->
+                <a href="{{ path('panier_add', {id: produit.id}) }}" class="btn btn-success">Ajouter au panier</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+        {% endfor %}
+        <!-- Fin de la boucle sur les produits -->
+    </div>
+</div>
         
          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         {% block javascripts %}{% endblock %}

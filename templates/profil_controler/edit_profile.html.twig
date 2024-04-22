@@ -1,6 +1,6 @@
 {# templates/profile/edit_profile.html.twig #}
 
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %}
 
 {% block title %}Modifier Profil{% endblock %}
 
@@ -10,4 +10,15 @@
     {{ form_widget(form) }}
     <button type="submit" class="btn btn-primary">Enregistrer</button>
     {{ form_end(form) }}
+{% endblock %} #}
+
+
+
+
+
+{% block title %}Modification du Profil de {{ app.user.username }} {{ app.user.email }}{% endblock %}
+{% block body %}
+<div class="gris XS4 container">
+    <div class="col-xs4"><h1>Modification du Profil de{{ app.user.username }} {{ app.user.email }}</h1></div>
+</div>
 {% endblock %}

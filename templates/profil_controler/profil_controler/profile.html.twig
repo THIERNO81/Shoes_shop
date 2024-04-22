@@ -1,0 +1,31 @@
+
+
+
+
+{% block title %}Profil de {{ app.user.username }} {{ app.user.email }}{% endblock %}
+{% block body %}
+
+<h1>{{ app.user.username }}</h1>
+
+<p>Email: {{ app.user.email }}</p>
+<p>Adresse: {{ app.user.address }}</p>
+
+<a href="{{ path('profile_edit') }}">Modifier le profil</a>
+<a href="#">Modifier le mot de passe</a>
+
+<h2>Historique des commandes</h2>
+<ul>
+    {% for order in app.user.orders %}
+        <li>{{ order.id }} - {{ order.totalAmount }}</li>
+    {% endfor %}
+</ul>
+
+<a href="{{ path('app_logout') }}">Déconnexion</a>
+
+
+
+
+
+
+
+{% endblock %}

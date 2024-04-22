@@ -1,10 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon Panier!{% endblock %}
 
 {% block body %}
+    <main class="container">
+        <section class="row">
+            <div class="col-12">
+            
+                <h1>Mon Panier</h1>
+                <table class="table">
+                    <thead>
+                        
+                        <tr>
+                            <th>Id</th>
+                            <th>Produit</th>
+                            <th>Prix</th>
+                            <th>Quantité</th>
+                            <th>Total</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                  
+                        {% for element in data %}
+                            <tr>
+                                <td>{{ element.produit.Id }}</td>
+                                <td>{{ element.produit.nomProduit }}</td>
+                                <td>{{ element.produit.prixProduit }} €</td>
+                                <td>{{ element.quantity }}</td>
+                                <td>{{ element.quantity * element.produit.prixProduit }} €</td>
+                                <td>
+                                    
+                                    <a href="{{ path('panier_remove', {id: element.produit.id}) }}" class="btn btn-warning">-</a>
+                                    <a href="{{ path('panier_add', {id: element.produit.id}) }}" class="btn btn-success">+</a>
+                                    <a href="{{ path('panier_delete', {id: element.produit.id}) }}" class="btn btn-danger">Supprimer</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">Votre panier est vide</td>
+                            </tr>    
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" style="background-color: #848484;">Total</td>
+                        <td style="background-color: #848484; font-weight: bold;">{{ total }} €</td>
+                        <td style="background-color: #848484;"></td>
 
 
-
+                                <a href="{{ path('panier_empty') }}" class="btn btn-danger">Vider</a>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+    </main>
 {% endblock %}
-
