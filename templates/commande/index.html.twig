@@ -1,10 +1,53 @@
+{# {% extends 'base.html.twig' %}
+{% block NomProduit %}Commande {% endblock %}
+
+{% block DescriptionProduit %}Commande{% endblock %}
+    
+{% block main %}
+
+<h1 class="text-center my-3 display-5">Ma Commande</h1>
+
+ 
+
+    <div class="container">
+        <div class="row">
+            <div class"col-md-3">
+                Forumalire: Adresse et Livreur
+            </div>
+            <div class"col-md-9">
+                Recapitulatif de la Commande
+        </div>
+      </div>
+    </div>
+
+
+
+{% endblock %} #}
+
+
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Commande index{% endblock %}
 
 {% block body %}
-    <h1>Commande index</h1>
+  
+<h1 class="text-center my-3 display-5">Ma Commande</h1>
 
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            Formulaire: Adresse et Livreur
+        </div>
+        <div class="col-md-9">
+            Récapitulatif de la Commande
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{# 
     <table class="table">
         <thead>
             <tr>
@@ -27,17 +70,16 @@
                 <td>{{ commande.StatutCommande }}</td>
                 <td>{{ commande.MontantTtc }}</td>
                 <td>
-                    <a href="{{ path('app_commande_show', {'id': commande.id}) }}">show</a>
-                    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}">edit</a>
-                </td>
+                    <a href="{{ path('app_commande_show', {'id': commande.id}) }}" class="btn btn-primary">Afficher</a>
+                    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}" class="btn btn-warning">Modifier</a>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Aucun enregistrement trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_commande_new') }}">Create new</a>
-{% endblock %}
+    <a href="#">Create new</a> #}
+{# {% endblock %} #}

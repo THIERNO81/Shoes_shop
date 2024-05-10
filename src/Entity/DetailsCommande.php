@@ -19,6 +19,11 @@ class DetailsCommande
     #[ORM\Column(length: 255)]
     private ?string $DetailsCommande = null;
 
+
+    #[ORM\Column(length: 255)]
+    private ?string $NomProduit ;
+
+
     #[ORM\Column]
     private ?int $QteDetailsCommande = null;
 
@@ -62,7 +67,7 @@ class DetailsCommande
         return $this;
     }
 
-    public function getPrixTtc(): ?string
+    public function getPrixTtc(): ?float
     {
         return $this->PrixTtc;
     }
@@ -97,4 +102,21 @@ class DetailsCommande
 
         return $this;
     }
+
+
+    
+    // public function setNomProduit(?Commande $NomProduit): static
+    // {
+    //     $this ->NomProduit = $NomProduit;
+    //     return $this;
+    // }
+
+    public $nomProduit;
+
+public function setNomProduit(string $nomProduit): void
+{
+    $this->nomProduit = $nomProduit;
+}
+
+    
 }

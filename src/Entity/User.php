@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use phpDocumentor\Reflection\Types\Null_;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'cette addresse mail est déjà utilisée')]
@@ -37,6 +40,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?int $numDeTel = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $adresseLivraison = null;
+
+    
 
     public function getId(): ?int
     {
@@ -140,6 +148,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNumDeTel(int $numDeTel): static
     {
         $this->numDeTel = $numDeTel;
+
+        return $this;
+    }
+  
+
+    // Constructeur
+    public function __construct()
+    {
+        $this->adresseLivraison = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|AdresseLivraison[]
+     */
+    public function getAdresseLivraison()
+    {
+        return []; //$this->adresseLivraison;
+    }
+
+    public function setAdresseLivraison(string $adresseLivraison): static
+    {
+        $this->adresseLivraison = $adresseLivraison;
 
         return $this;
     }

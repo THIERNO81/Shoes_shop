@@ -1,43 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}AdresseLivraison index{% endblock %}
-
 {% block body %}
-    <h1>AdresseLivraison index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>UserId</th>
-                <th>LibRueAdresseLivraison</th>
-                <th>CpAdresseLivraison</th>
-                <th>VilleAdresseLivraison</th>
-                <th>CommentaireAdresseLivr</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adresse_livraison in adresse_livraisons %}
-            <tr>
-                <td>{{ adresse_livraison.id }}</td>
-                <td>{{ adresse_livraison.UserId }}</td>
-                <td>{{ adresse_livraison.LibRueAdresseLivraison }}</td>
-                <td>{{ adresse_livraison.CpAdresseLivraison }}</td>
-                <td>{{ adresse_livraison.VilleAdresseLivraison }}</td>
-                <td>{{ adresse_livraison.CommentaireAdresseLivr }}</td>
-                <td>
-                    <a href="{{ path('app_adresse_livraison_show', {'id': adresse_livraison.id}) }}">show</a>
-                    <a href="{{ path('app_adresse_livraison_edit', {'id': adresse_livraison.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_adresse_livraison_new') }}">Create new</a>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header">
+                        Liste des adresses de livraison
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>UserId</th>
+                                    <th>LibRueAdresseLivraison</th>
+                                    <th>CpAdresseLivraison</th>
+                                    <th>VilleAdresseLivraison</th>
+                                    <th>CommentaireAdresseLivr</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for adresse_livraison in adresse_livraisons %}
+                                    <tr>
+                                        <td>{{ adresse_livraison.id }}</td>
+                                        <td>{{ adresse_livraison.UserId }}</td>
+                                        <td>{{ adresse_livraison.LibRueAdresseLivraison }}</td>
+                                        <td>{{ adresse_livraison.CpAdresseLivraison }}</td>
+                                        <td>{{ adresse_livraison.VilleAdresseLivraison }}</td>
+                                        <td>{{ adresse_livraison.CommentaireAdresseLivr }}</td>
+                                        <td class="text-center">
+                                            <a href="{{ path('app_adresse_livraison_show', {'id': adresse_livraison.id}) }}" class="btn btn-sm btn-primary">Afficher</a>
+                                            <a href="{{ path('app_adresse_livraison_edit', {'id': adresse_livraison.id}) }}" class="btn btn-sm btn-warning">Modifier</a>
+                                            <a href="{{ path('app_adresse_livraison_delete', {'id': adresse_livraison.id}) }}" class="btn btn-sm btn-danger">Supprimer</a>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="7">Aucun enregistrement trouvé</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-3">
+        <a href="{{ path('app_adresse_livraison_new') }}" class="btn btn-success">Créer une nouvelle adresse</a>
+    </div>
 {% endblock %}
+

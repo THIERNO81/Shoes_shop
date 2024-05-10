@@ -2,9 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\CommandeRepository;
+
 use Doctrine\DBAL\Types\Types;
+
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CommandeRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
 class Commande
@@ -18,18 +23,15 @@ class Commande
     private ?int $UserId = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $PaiementStripe = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $DateCommande = null;
+    private ?string $PaiementStripe = ''; 
 
     #[ORM\Column(length: 255)]
-    private ?string $StatutCommande = null;
+    private string $StatutCommande = ''; // Modification ici
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
-    private ?string $MontantTtc = null;
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 0, options: ["default" => 0])] // Modification ici
+    private string $MontantTtc = '0'; // Modification ici
 
-    #[ORM\ManyToOne(inversedBy: 'Commande')]
+    #[ORM\ManyToOne(inversedBy:  'Commande')]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
@@ -40,6 +42,7 @@ class Commande
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?AdresseFacturation $AdresseFacturation = null;
+
 
     public function getId(): ?int
     {
@@ -70,19 +73,9 @@ class Commande
         return $this;
     }
 
-    public function getDateCommande(): ?\DateTimeInterface
-    {
-        return $this->DateCommande;
-    }
-
-    public function setDateCommande(\DateTimeInterface $DateCommande): static
-    {
-        $this->DateCommande = $DateCommande;
-
-        return $this;
-    }
-
-    public function getStatutCommande(): ?string
+    
+    
+    public function getStatutCommande(): string
     {
         return $this->StatutCommande;
     }
@@ -94,12 +87,12 @@ class Commande
         return $this;
     }
 
-    public function getMontantTtc(): ?string
+    public function getMontantTtc(): string // Modification ici
     {
         return $this->MontantTtc;
     }
 
-    public function setMontantTtc(string $MontantTtc): static
+    public function setMontantTtc(string $MontantTtc): static // Modification ici
     {
         $this->MontantTtc = $MontantTtc;
 
@@ -154,4 +147,66 @@ class Commande
         return $this;
     }
 
+    private $detailsCommandes;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $DateCommande = null;
+
+  
+
+    public function __construct()
+    {
+        $this->detailsCommandes = new ArrayCollection();
+    }
+
+    // Autres propriétés et méthodes de l'entité Commande
+
+    /**
+     * @return Collection|DetailsCommande[]
+     */
+    public function getDetailsCommandes(): Collection
+    {
+        return $this->detailsCommandes;
+    }
+
+    public function addDetailsCommande(DetailsCommande $detailsCommande): self
+    {
+        if (!$this->detailsCommandes->contains($detailsCommande)) {
+            $this->detailsCommandes[] = $detailsCommande;
+            $detailsCommande->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDetailsCommande(DetailsCommande $detailsCommande): self
+    {
+        if ($this->detailsCommandes->removeElement($detailsCommande)) {
+            // set the owning side to null (unless already changed)
+            if ($detailsCommande->getCommande() === $this) {
+                $detailsCommande->setCommande(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDateCommande(): ?\DateTimeInterface
+    {
+        return $this->DateCommande;
+    }
+
+    public function setDateCommande(?\DateTimeInterface $DateCommande): static
+    {
+        $this->DateCommande = $DateCommande;
+
+        return $this;
+    }
+
+    
 }
+    
+
+
+
+

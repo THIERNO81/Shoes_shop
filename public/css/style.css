@@ -1,3 +1,5 @@
+/* assets/css/app.css */
+@import '~@fortawesome/fontawesome-free/css/all.css';
 
 .nav-bg{
     background-color: #ffc107;
@@ -72,7 +74,12 @@
         color: #007bff; /* Couleur des liens au survol */
     }
 
-
+/* GESTION DES ADRESSES DE LIVRAISON */
+/* Règle pour augmenter la taille du texte dans les cellules de tableau */
+.table td,
+.table th {
+    font-size: 14px; /* Ajustez cette valeur en fonction de vos besoins */
+}
 
 
     

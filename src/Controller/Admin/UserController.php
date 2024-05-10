@@ -18,7 +18,7 @@ class UserController extends AbstractController
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'user' => $userRepository->findAll(),
         ]);
     }
 
@@ -57,14 +57,17 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Le formulaire a été soumis et est valide
             $entityManager->flush();
 
+            // Redirection vers la liste des utilisateurs après la modification
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('user/edit.html.twig', [
+        // Affichage du formulaire de modification avec les données de l'utilisateur
+        return $this->render('user/edit.html.twig', [
             'user' => $user,
-            'form' => $form,
+            'form' => $form->createView(), // Passer le formulaire à Twig sous forme de vue
         ]);
     }
 

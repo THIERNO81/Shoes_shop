@@ -1,4 +1,26 @@
-{{ form_start(form) }}
+{# {{ form_start(form) }}
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{{ form_end(form) }} #}
+
+
+{# templates/commande/nouvelle_commande.html.twig #}
+{{ commande }}
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Commande{% endblock %}
+
+{% block body %}
+    <h1>Nouvelle Commande</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.DetailsCommande) }}
+    {{ form_row(form.QteDetailsCommande) }}
+    {{ form_row(form.PrixTtc) }}
+    {{ form_row(form.Stock) }}
+    {{ form_row(form.Commande) }}
+    <button type="submit">Enregistrer</button>
+    {{ form_end(form) }}
+{% endblock %}

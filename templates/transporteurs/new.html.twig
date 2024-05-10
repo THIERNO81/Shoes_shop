@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Transporteurs{% endblock %}
+
+{% block body %}
+   
+<div class="container">
+
+<h1>Créer "Transporteurs"</h1>
+
+ {{ include('transporteurs/_form.html.twig') }}
+    <a href="{{ path('app_transporteurs_index') }}">retour à la liste</a>
+   
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+

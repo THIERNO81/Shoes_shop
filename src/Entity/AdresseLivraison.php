@@ -12,22 +12,22 @@ class AdresseLivraison
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(name:"id")]
+    private ?int $id;
 
-    #[ORM\Column]
-    private ?int $UserId = null;
+    #[ORM\Column(name:"user_id")]
+    private ?int $UserId;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name:"lib_rue_adresse_livraison")]
     private ?string $LibRueAdresseLivraison = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name:"cp_adresse_livraison")]
     private ?int $CpAdresseLivraison = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name:"ville_adresse_livraison")]
     private ?string $VilleAdresseLivraison = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name:"commentaire_adresse_livr")]
     private ?string $CommentaireAdresseLivr = null;
 
     #[ORM\ManyToOne(inversedBy: 'AdresseLivraison')]
@@ -35,6 +35,20 @@ class AdresseLivraison
 
     #[ORM\OneToMany(mappedBy: 'Commande', targetEntity: Commande::class)]
     private Collection $commandes;
+
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $updatedAt;
+
+
+    
 
     public function __construct()
     {
@@ -147,4 +161,30 @@ class AdresseLivraison
 
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+
+  
+
 }

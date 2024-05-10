@@ -1,27 +1,23 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
-    <main class="container">
+    <div class="container">
         <section class="row">
             <div class="col-12">
-            
                 <h1>Mon Panier</h1>
+
                 <table class="table">
                     <thead>
-                        
                         <tr>
                             <th>Id</th>
                             <th>Produit</th>
                             <th>Prix</th>
                             <th>Quantité</th>
                             <th>Total</th>
-                            <th>actions</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-
-                  
                         {% for element in data %}
                             <tr>
                                 <td>{{ element.produit.Id }}</td>
@@ -30,7 +26,6 @@
                                 <td>{{ element.quantity }}</td>
                                 <td>{{ element.quantity * element.produit.prixProduit }} €</td>
                                 <td>
-                                    
                                     <a href="{{ path('panier_remove', {id: element.produit.id}) }}" class="btn btn-warning">-</a>
                                     <a href="{{ path('panier_add', {id: element.produit.id}) }}" class="btn btn-success">+</a>
                                     <a href="{{ path('panier_delete', {id: element.produit.id}) }}" class="btn btn-danger">Supprimer</a>
@@ -38,23 +33,43 @@
                             </tr>
                         {% else %}
                             <tr>
-                                <td colspan="5">Votre panier est vide</td>
-                            </tr>    
+                                <td colspan="6">Votre panier est vide</td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="3" style="background-color: #848484;">Total</td>
-                        <td style="background-color: #848484; font-weight: bold;">{{ total }} €</td>
-                        <td style="background-color: #848484;"></td>
-
-
+                            <td colspan="4"></td> <!-- Colonne vide pour aligner le montant total -->
+                            <td style="font-weight: bold;">{{ total }} €</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
                                 <a href="{{ path('panier_empty') }}" class="btn btn-danger">Vider</a>
+                                <a href="{{ path('app_commande_add') }}" class="btn btn-success">
+                                    <i class="fas fa-shopping-cart"></i> Passer ma commande
+                                </a>
                             </td>
                         </tr>
                     </tfoot>
                 </table>
             </div>
         </section>
-    </main>
+    </div>
+
+ 
+{# 
+    <div class="container">
+        <div class="row">
+            <div class"col-md-3">
+                Forumalire: Adresse et Livreur
+            </div>
+            <div class"col-md-9">
+                Recapitulatif de la Commande
+        </div>
+      </div>
+    </div> #}
+
+
+
 {% endblock %}
