@@ -1,0 +1,123 @@
+{# templates/checkout/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation du panier
+{% endblock %}
+
+{% block body %}
+{{ include("templates/checkout/index.html.twig", {'name':'Récapitulatif de votre panier'}) }}
+
+<div class="section checkout">
+	<div class="container">
+		{{form_start(checkout)}}
+		<div class="row">
+			<div class="col-md-6">
+				<div class="heading_s1">
+					<h4>Vos adresses de livraison</h4>
+					<div class="content">
+						{{ form_widget(checkout.adresse_livraison)| replace({'[spr]': '<br>'})| raw }}
+					</div>
+					<a href="{{ path('app_adresse_livraison_new') }}" class="btn btn-fill-btn-block-mt-1">Nouvelle Adresse</a>
+				</div>
+			</div>
+			<div class="heading_s1">
+				<h4>Transporteurs</h4>
+				{{ form_widget(checkout.Transporteurs)| replace({'[spr]': '<br>'})| raw }}
+			</div>
+		</div>
+		<div class="heading_s1">
+			<h4>Informations sur le livreur</h4>
+			<div class="form-group-mb-0">
+				{{ form_widget(checkout.informations) }}
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="order_review">
+			<div class="heading_s1">
+				<h4>Votre Commande</h4>
+			</div>
+			<div class="table-reponsive order_table">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Produit</th>
+							<th>total</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for element in panier.produits %}
+							<tr>
+								<td>{{ element.produit.nomProduit}}
+									<span class="produit-quantite"></span>
+								</td>
+								<td>€{{ element.produit.prixProduit /100}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>Sous total HT</th>
+							<td class="produit-subtotal">€{{ panier.data.subtotalHT}}</td>
+						</tr>
+						<tr>
+							<th>Taxe</th>
+							<td class="produit-subtotal">€{{ panier.data.taxe}}</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<div class="payment_method">
+				<div class="heading_s1">
+					<h4>Paiement par carte bancaire</h4>
+				</div>
+				<button type="submit"= id="" class="btn btn-fill-out btn-block">Passer ma commande</button>
+			</div>
+		</div>
+	</div>
+	{{ form_end(Checkout) }}
+</div>
+</div>
+</tbody>
+{% endblock %}
+
+
+
+{# 
+							<h1>Checkout</h1>
+				
+							{% if panier is empty %}
+								<p>{{ app.user.username }}, votre panier est vide. Ajoutez des produits pour passer à la caisse.</p>
+								<a href="{{ path('app_commande_add') }}">Ajouter des produits</a>
+							{% else %}
+								<h2>Récapitulatif du panier :</h2>
+								<ul>
+									{% for item in panier.items %}
+										<li>{{ item.produit.name }}
+											- Quantité :
+											{{ item.quantity }}</li>
+									{% endfor %}
+								</ul>
+				
+								{% if deliveryAddresseLivraison %}
+									<h2>Adresse de livraison :</h2>
+									<p>{{ deliveryAddresseLivraison.VilleAdresseLivraison }},
+										{{ deliveryAddresseLivraison.VilleAdresseLivraison }},
+										{{ deliveryAddresseLivraison.CpAdresseLivraison }}</p>
+								{% else %}
+									<p>Aucune adresse de livraison sélectionnée. Veuillez choisir une adresse :</p>
+									<a href="{{ path('app_checkout_choose_delivery') }}">Choisir une adresse de livraison</a>
+								{% endif %}
+				
+								<hr>
+								<a href="{{ path('app_checkout_confirm') }}">Confirmer la commande</a>
+							{% endif %}
+				
+							{% for message in app.flashes('checkout-message') %}
+								<div class="alert alert-info">
+									{{ message }}
+								</div>
+							{% endfor %}
+						{% endblock %} #}

@@ -193,7 +193,7 @@
 		                        <ul class="nav flex-column">
 		                            <li class="nav-item">
 		                                <a class="nav-link d-flex align-items-center gap-2 text-dark active" aria-current="page" href="{{ path('app_welcome') }}">
-		                                    Accueil
+		                                    <i class="fa fa-home" aria-hidden="true"></i>Accueil
 		                                </a>
 		                            </li>
 		                            <li class="nav-item">
@@ -209,18 +209,18 @@
 		                            </li>
 		
 		                            <li class="nav-item">
-		                                <a class="nav-link d-flex align-items-center gap-2 text-dark" href="#">
-		                                    Les commandes
+		                                <a class="nav-link d-flex align-items-center gap-2 text-dark" href="{{path('app_commande_add')}}">
+		                                    <i class="fa-solid fa-list"></i>Les commandes
 		                                </a>
 		                            </li>
 		                            <li class="nav-item">
 		                                <a class="nav-link d-flex align-items-center gap-2 text-dark" href="#">
-		                                    Les utilisateurs
+		                                    <i class="fa-solid fa-user"></i>Les utilisateurs
 		                                </a>
 		                            </li>
 		                            <li class="nav-item">
 		                                <a class="nav-link d-flex align-items-center gap-2 text-dark" href="contact_index">
-		                                    Les contacts
+		                                    <i class="fa-solid fa-address-book"></i>Les contacts
 		                                </a>
 		                            </li>
 		
@@ -237,7 +237,7 @@
 		                        <ul class="nav flex-column mb-auto">
 		                            <li class="nav-item">
 		                                <a class="nav-link d-flex align-items-center gap-2 text-dark" href="{{path('app_user_index')}}">
-		                                    Mon compte
+		                                    <i class="fa-solid fa-user"></i>Mon compte
 		                                
 		                                </a>
 		                            </li>
@@ -248,7 +248,7 @@
 		                            </li>
 		                            <li class="nav-item">
 		                                <a class="nav-link d-flex align-items-center gap-2 text-dark" href="{{path('app_logout')}}">
-		                                    Déconnexion
+		                                   <i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion
 		                                </a>
 		                            </li>
 		                        </ul>

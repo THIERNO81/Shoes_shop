@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Transporteurs;
 use App\Form\TransporteursType;
 use App\Repository\TransporteursRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,15 +18,28 @@ class TransporteursController extends AbstractController
     #[Route('/', name: 'app_transporteurs_index', methods: ['GET'])]
     public function index(TransporteursRepository $transporteursRepository): Response
     {
-        return $this->render('transporteurs/index.html.twig', [
-            'transporteurs' => $transporteursRepository->findAll(),
+        // return $this->render('transporteurs/index.html.twig', [
+        //     'transporteurs' => $transporteursRepository->findAll(),
+        // ]);
+        $transporteurs = $transporteursRepository->findAll();
+
+        $form = $this->createForm(TransporteursType::class, $transporteurs, [
+            'method' => 'PUT'
         ]);
+        
+
+        return $this->render('Transporteurs/index.html.twig', [
+            'transporteurs' => $transporteursRepository->findAll(),
+            'form' => $form->createView(),
+        ]);
+    
     }
 
     #[Route('/new', name: 'app_transporteurs_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $transporteur = new Transporteurs();
+        $nomTransport = $transporteur->getNameTransport();
         $form = $this->createForm(TransporteursType::class, $transporteur);
         $form->handleRequest($request);
 
@@ -33,7 +47,7 @@ class TransporteursController extends AbstractController
             $entityManager->persist($transporteur);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_transporteurs_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_transporteurs_index', []);
         }
 
         return $this->renderForm('transporteurs/new.html.twig', [
@@ -55,18 +69,33 @@ class TransporteursController extends AbstractController
     {
         $form = $this->createForm(TransporteursType::class, $transporteur);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_transporteurs_index', [], Response::HTTP_SEE_OTHER);
+            $transporteur->setUpdatedAt(new DateTimeImmutable());
+        
+            try {
+                $entityManager->persist($transporteur);
+                $entityManager->flush();
+        
+                $this->addFlash("success", 'Le livreur a été modifié.');
+        
+                return $this->redirectToRoute('app_transporteurs_index');
+            } catch (\Exception $e) {
+                $this->addFlash("error", 'Une erreur est survenue lors de la modification du livreur.');
+                // Vous pouvez également enregistrer des logs pour suivre l'erreur
+                // $this->logger->error('Erreur lors de la modification du livreur : ' . $e->getMessage());
+            }
+        } else {
+            $this->addFlash("error", 'Le formulaire n\'est pas valide. Veuillez corriger les erreurs.');
         }
-
+        
+    
         return $this->renderForm('transporteurs/edit.html.twig', [
             'transporteur' => $transporteur,
             'form' => $form,
         ]);
     }
+    
 
     #[Route('/{id}', name: 'app_transporteurs_delete', methods: ['POST'])]
     public function delete(Request $request, Transporteurs $transporteur, EntityManagerInterface $entityManager): Response
@@ -76,6 +105,6 @@ class TransporteursController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_transporteurs_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_transporteurs_index');
     }
 }

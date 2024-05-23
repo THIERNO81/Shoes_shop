@@ -25,30 +25,88 @@
 {% endblock %} #}
 
 
-
 {% extends 'base.html.twig' %}
 
-{% block title %}Commande index{% endblock %}
+{% block title %}Commande index
+{% endblock %}
 
 {% block body %}
-  
-<h1 class="text-center my-3 display-5">Ma Commande</h1>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            Formulaire: Adresse et Livreur
-        </div>
-        <div class="col-md-9">
-            Récapitulatif de la Commande
-        </div>
-    </div>
-</div>
+	<h1 class="text-center my-3 display-5">Ma Commande</h1>
+
+	<div class="container position-relative">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="text-start mt-3 mb-5">
+					<a href="{{ path('app_adresse_livraison_new') }}" class="btn btn-success">Créer une nouvelle adresse</a>
+				</div>
+				{# Formulaire: Adresse et Livreur #}
+				{{ form_start(form) }}
+				<div class="mb-3">
+					<div class="text-danger">{{ form_errors(form.AdresseLivraison) }}</div>
+					{{ form_widget(form.AdresseLivraison, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="mb-3">
+					<div class="text-danger">{{ form_errors(form.Transporteurs) }}</div>
+					{{ form_widget(form.Transporteurs, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="mb-3">
+					<input formnovalidate type="submit" class="btn btn-warning w-100" value="Passer la commande et payer">
+				</div>
+			</div>
+
+			<div
+				class="col-md-6">
+				{# Récapitulatif de la Commande #}
+
+				<ol class="list-group list-group-numbered">
+					<li class="list-group-item d-flex justify-content-between align-items-start">
+						<div class="ms-2 me-auto">
+							<div class="fw-bold">Prix HT.</div>
+							...
+						</div>
+						<span class="badge text-bg-primary rounded-pill">14</span>
+					</li>
+					<li class="list-group-item d-flex justify-content-between align-items-start">
+						<div class="ms-2 me-auto">
+							<div class="fw-bold">TVA.</div>
+							...
+						</div>
+						<span class="badge text-bg-primary rounded-pill">14</span>
+					</li>
+					<li class="list-group-item d-flex justify-content-between align-items-start">
+						<div class="ms-2 me-auto">
+							<div class="fw-bold">Prix TTC.</div>
+							...
+						</div>
+						<span class="badge text-bg-primary rounded-pill">14</span>
+					</li>
+
+					<li class="list-group-item d-flex justify-content-between align-items-start">
+						<div class="ms-2 me-auto">
+							<div class="fw-bold">Prix Livraison</div>
+							...
+						</div>
+						<span class="badge text-bg-primary rounded-pill">14</span>
+					</li>
+					<li class="list-group-item d-flex justify-content-between align-items-start">
+						<div class="ms-2 me-auto">
+							<div class="fw-bold">Prix T.</div>
+							...
+						</div>
+						<span class="badge text-bg-primary rounded-pill">14</span>
+					</li>
+				</ol>
+
+				<a href="{{ path('panier_index') }}" type="button" class="btn btn-success">Revenir au panier</a>
+			</div>
+		</div>
+	</div>
 
 {% endblock %}
 
-{# 
-    <table class="table">
+
+{# <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -81,5 +139,5 @@
         </tbody>
     </table>
 
-    <a href="#">Create new</a> #}
-{# {% endblock %} #}
+    <a href="#">Create new</a>
+{% endblock %} #}

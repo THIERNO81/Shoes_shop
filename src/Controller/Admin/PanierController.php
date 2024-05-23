@@ -14,37 +14,40 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PanierController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(SessionInterface $session, ProduitRepository $produitRepository)
-    {
-       
-        $panier = $session->get('panier', []);
+public function index(SessionInterface $session, ProduitRepository $produitRepository)
+{
+    $panier = $session->get('panier', []);
+    $data = [];
+    $totalHT = 0;
 
-        // Initialisation des variables
-        $data = [];
-        $total = 0;
+    foreach ($panier as $id => $quantity) {
+        $produit = $produitRepository->find($id);
 
-       
+        if ($produit !== null) {
+            $prixProduit = $produit->getPrixProduit();
+            $sousTotal = $prixProduit * $quantity;
 
-        foreach($panier as $id => $quantity){
-            $produit = $produitRepository->find($id);
+            $data[] = [
+                'produit' => $produit,
+                'quantity' => $quantity,
+                'sousTotal' => $sousTotal
+            ];
 
-            
-            if ($produit !== null) {
-                $data[] = [
-                    'produit' => $produit,
-                    'quantity' => $quantity
-                ];
-               
-              
-                $total += $produit->getPrixProduit() * $quantity;
-            }
-            
+            $totalHT += $sousTotal;
         }
+    }
 
-        // dd($panier);
-       
-        return $this->render('panier/index.html.twig', compact('data', 'total'));
-    } 
+    $tva = $totalHT * 0.20; // Calcul de la TVA (taux de 20%)
+    $totalTTC = $totalHT + $tva; // Calcul du total TTC
+
+    return $this->render('panier/index.html.twig', [
+        'data' => $data,
+        'totalHT' => $totalHT,
+        'tva' => $tva,
+        'totalTTC' => $totalTTC
+    ]);
+}
+
 
     #[Route('/add/{id}', name: 'add')]
     public function add(Produit $produit, SessionInterface $session)

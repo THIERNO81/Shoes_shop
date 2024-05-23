@@ -6,6 +6,7 @@ use App\Repository\AdresseLivraisonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Entreprise;
 
 #[ORM\Entity(repositoryClass: AdresseLivraisonRepository::class)]
 class AdresseLivraison
@@ -174,7 +175,7 @@ class AdresseLivraison
     }
 
     public function getUpdatedAt(): ?\DateTimeImmutable
-    {
+    { 
         return $this->updatedAt;
     }
 
@@ -183,8 +184,33 @@ class AdresseLivraison
         $this->updatedAt = $updatedAt;
         return $this;
     }
+    private $fullname;
+    private $entreprise;
+
+    public function __toString()
+    {
+        $result = $this->fullname;
+
+        if ($this->getEntreprise()) {
+            $result .= "Entreprise:" . $this->entreprise;
+        }
 
 
-  
+    $result .= $this->LibRueAdresseLivraison;
+    $result .= $this->CpAdresseLivraison;
+    $result .= $this->VilleAdresseLivraison;
 
-}
+    // Utilisez $this->CommentaireAdresseLivr s'il s'agit de l'attribut correct
+    $result .= $this->CommentaireAdresseLivr ;
+
+    return $result;
+    }
+    public function getEntreprise()
+    {
+        return $this->entreprise;
+    }
+
+    }
+
+
+

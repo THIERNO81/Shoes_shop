@@ -1,0 +1,19 @@
+
+{# templates/paiement.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Effectuer un paiement{% endblock %}
+
+{% block body %}
+    <h1>Effectuer un paiement</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.cardHolderName) }}
+        {{ form_row(form.cardNumber) }}
+        {{ form_row(form.expiryDate) }}
+        {{ form_row(form.cvv) }}
+        {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+    
+{% endblock %}

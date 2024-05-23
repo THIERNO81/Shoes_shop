@@ -42,7 +42,14 @@ class Commande
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?AdresseFacturation $AdresseFacturation = null;
-
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\AdresseLivraison")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Transporteurs")
+     * @ORM\JoinColumn(nullable=false)
+     */
 
     public function getId(): ?int
     {
@@ -203,7 +210,36 @@ class Commande
         return $this;
     }
 
-    
+    private $adresseLivraison;
+
+   
+
+    public function getAdresseLivraison(): ?AdresseLivraison
+    {
+        return $this->adresseLivraison;
+    }
+
+    public function setAdresseLivraison(?AdresseLivraison $adresseLivraison): self
+    {
+        $this->adresseLivraison = $adresseLivraison;
+        return $this;
+    }
+
+    private $transporteur;
+
+ 
+
+    public function getTransporteur(): ?Transporteurs
+    {
+        return $this->transporteur;
+    }
+
+    public function setTransporteur(?Transporteurs $transporteur): self
+    {
+        $this->transporteur = $transporteur;
+        return $this;
+    }
+
 }
     
 

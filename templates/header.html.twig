@@ -6,6 +6,7 @@
 			{% block title %}Welcome ShoesShop!
 			{% endblock %}
 		</title>
+
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 		<link rel="stylesheet" href="/css/style.css"> {% block stylesheets %}{% endblock %}
@@ -32,14 +33,18 @@
 							</li>
 						</ul>
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-							<li cl1ass="nav-item">
-								<a <a class="nav-link active" aria-current="page" href="{{ path('panier_index') }}"><i class="fa-solid fa-cart-shopping"></i>
-								Mon Panier</a>
-							</li>
 							<li class="nav-item">
-								{# <a class="nav-link d-flex align-items-center gap-2 text-dark" href="{{path('app_user_index')}}">
-									Mon profil
-								</a> #}
+								<a class="nav-link active" aria-current="page" href="{{ path('panier_index') }}">
+									<i class="fas fa-cart-shopping"></i>
+									<!-- Ajoutez ici l'icône du panier -->
+									Mon Panier
+								</a>
+							</li>
+
+							<li
+								class="nav-item">{# <a class="nav-link d-flex align-items-center gap-2 text-dark" href="{{path('app_user_index')}}">
+																											Mon profil
+																										</a> #}
 							</li>
 
 							{% if app.user %}

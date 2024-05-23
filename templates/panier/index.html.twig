@@ -7,69 +7,180 @@
                 <h1>Mon Panier</h1>
 
                 <table class="table">
-                    <thead>
+                    <thead class="bg-primary text-white header-row">
                         <tr>
                             <th>Id</th>
                             <th>Produit</th>
-                            <th>Prix</th>
+                            <th>Prix unitaire</th>
                             <th>Quantité</th>
-                            <th>Total</th>
+                            <th>Sous-total</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for element in data %}
+                        {% for item in data %}
                             <tr>
-                                <td>{{ element.produit.Id }}</td>
-                                <td>{{ element.produit.nomProduit }}</td>
-                                <td>{{ element.produit.prixProduit }} €</td>
-                                <td>{{ element.quantity }}</td>
-                                <td>{{ element.quantity * element.produit.prixProduit }} €</td>
+                                <td>{{ item.produit.id }}</td>
+                                <td>{{ item.produit.nomProduit }}</td>
+                                <td>{{ item.produit.prixProduit }} €</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ item.sousTotal }} €</td>
                                 <td>
-                                    <a href="{{ path('panier_remove', {id: element.produit.id}) }}" class="btn btn-warning">-</a>
-                                    <a href="{{ path('panier_add', {id: element.produit.id}) }}" class="btn btn-success">+</a>
-                                    <a href="{{ path('panier_delete', {id: element.produit.id}) }}" class="btn btn-danger">Supprimer</a>
+                                    <a href="{{ path('panier_remove', {id: item.produit.id}) }}" class="btn btn-warning">-</a>
+                                    <a href="{{ path('panier_add', {id: item.produit.id}) }}" class="btn btn-success">+</a>
+                                    <a href="{{ path('panier_delete', {id: item.produit.id}) }}" class="btn btn-danger">Supprimer</a>
                                 </td>
                             </tr>
-                        {% else %}
-                            <tr>
-                                <td colspan="6">Votre panier est vide</td>
-                            </tr>
+							
                         {% endfor %}
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="4"></td> <!-- Colonne vide pour aligner le montant total -->
-                            <td style="font-weight: bold;">{{ total }} €</td>
-                            <td></td>
+					<a href="{{ path('app_catalog') }}">retour aux produit</a>
+                    <tfoot class="bg-light total-rows">
+                        <tr class="total-row">
+                            <td colspan="5"><strong>Total HT</strong></td>
+                            <td>{{ totalHT }} €</td>
                         </tr>
-                        <tr>
-                            <td colspan="6">
-                                <a href="{{ path('panier_empty') }}" class="btn btn-danger">Vider</a>
-                                <a href="{{ path('app_commande_add') }}" class="btn btn-success">
-                                    <i class="fas fa-shopping-cart"></i> Passer ma commande
-                                </a>
-                            </td>
+                        <tr class="total-row">
+                            <td colspan="5"><strong>TVA (20%)</strong></td>
+                            <td>{{ tva }} €</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="5"><strong>Total TTC</strong></td>
+                            <td>{{ totalTTC }} €</td>
                         </tr>
                     </tfoot>
                 </table>
+				
+
+
+                <a href="{{ path('panier_empty') }}" class="btn btn-danger">Vider le panier</a>
+                <a href="{{ path('app_commande_add') }}" class="btn btn-success">Valider mon panier</a>
+				
             </div>
         </section>
     </div>
 
- 
+
+
+
+
+
+
+
+
+
+
 {# 
-    <div class="container">
-        <div class="row">
-            <div class"col-md-3">
-                Forumalire: Adresse et Livreur
-            </div>
-            <div class"col-md-9">
-                Recapitulatif de la Commande
-        </div>
-      </div>
-    </div> #}
+			
+            
+            	<div class="row">
+					<!-- Première carte -->
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">Détails du Prix</h5>
+								<p class="card-text" style="font-size: 1.25rem; margin-bottom: 0;">Prix HT : €100</p>
+								<p class="card-text" style="font-size: 1.25rem; margin-bottom: 0;">TVA (20%) : €20</p>
+								<p class="card-text" style="font-size: 1.25rem; margin-bottom: 0;">Livraison : €10</p>
+								<hr
+								style="margin-top: 0; margin-bottom: 0;">
+								<!-- Ligne de séparation sans marge -->
+								<p class="card-text" style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0;">Prix TTC : €130</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- Deuxième carte -->
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">Livraison</h5>
+								<form>
+									<div class="mb-3">
+										<label for="adresse" class="form-label">Adresse de livraison</label>
+										<input type="text" class="form-control" id="adresse" name="adresse" placeholder="Entrez votre adresse">
+									</div>
+									<div class="mb-3">
+										<label for="ville" class="form-label">Ville</label>
+										<input type="text" class="form-control" id="ville" name="ville" placeholder="Entrez votre ville">
+									</div>
+									<div class="mb-3">
+										<label for="codepostal" class="form-label">Code Postal</label>
+										<input type="text" class="form-control" id="codepostal" name="codepostal" placeholder="Entrez votre code postal">
+									</div>
+									<button type="submit" class="btn btn-primary">Valider</button>
+								</form>
+							</div>
+						</div>
+					</div>
+
+<div class="col-md-6">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Transporteurs</h5>
+							<ol class="list-group list-group-numbered">
+								<li class="list-group-item d-flex justify-content-between align-items-start">
+									<div class="ms-2 me-auto">
+										<div class="fw-bold" style="font-size: 1.25rem; margin-bottom: 0;">Subheading</div>
+										Cras justo odio
+									</div>
+									<span class="badge bg-primary rounded-pill" style="font-size: 1.25rem; margin-bottom: 0;">14</span>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-start">
+									<div class="ms-2 me-auto">
+										<div class="fw-bold" style="font-size: 1.25rem; margin-bottom: 0;">Subheading</div>
+										Cras justo odio
+									</div>
+									<span class="badge bg-primary rounded-pill" style="font-size: 1.25rem; margin-bottom: 0;">14</span>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-start">
+									<div class="ms-2 me-auto">
+										<div class="fw-bold" style="font-size: 1.25rem; margin-bottom: 0;">Subheading</div>
+										Cras justo odio
+									</div>
+									<span class="badge bg-primary rounded-pill" style="font-size: 1.25rem; margin-bottom: 0;">14</span>
+								</li>
+							</ol>
+						</div>
+					</div>
+				</di<div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Récapitulatif d'Utilisation</h5>
+                            <p class="card-text" style="font-size: 1.25rem; margin-bottom: 0;">Nom : </p>
+                            <p class="card-text" style="font-size: 1.25rem; margin-bottom: 0;">Prenom : 15</p>
+                            <p class="card-text" style="font-size: 1.25rem; margin-bottom: 0;">Adresse: /p>
+                            <hr style="margin-top: 10px; margin-bottom: 10px;">
+                        
+                        </div>
+                    </div>
+                </div>
+				</div>
+
+				<!-- Troisième carte -->
+				
+<hr>
+                <div class="row">
+    <!-- Carte d'information -->
+    
+</div>
+
+
+			</div>
+		</section>
+	</div> #}
 
 
 
+	{# 
+								    <div class="container">
+								        <div class="row">
+								            <div class"col-md-3">
+								                Forumalire: Adresse et Livreur
+								            </div>
+								            <div class"col-md-9">
+								                Recapitulatif de la Commande
+								        </div>
+								      </div>
+								    </div> #}
 {% endblock %}

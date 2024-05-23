@@ -10,8 +10,7 @@
         <link rel="stylesheet" href="/css/style.css">
         
         {% block stylesheets %}{% endblock %}    
-                
-        
+       
     </head>
     <body>
       <nav class="navbar navbar-expand-lg nav-bg">
@@ -87,12 +86,10 @@
     <h1 class="text-center my-3" style="background-color: #ccc; border: 2px solid #ffc107; padding: 10px;">Catalogue des produits</h1>
 
     <div class="row">
-    {# <pre>
-      {{ dump(produits) }}
-    </pre> #}
         <!-- Boucle sur les produits -->
         {% for produit in produits %}
-        <div class="col-sm-12 col-md-6 col-lg-4 mt-4"> <!-- Adapté pour rendre la grille plus responsive -->
+        <div class="col-3 mb-3"> 
+        
             <!-- Carte Bootstrap pour chaque produit -->
             <div class="card mb-3">
               <div class="row g-0">
@@ -101,36 +98,12 @@
                 </div>
               <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title">{{ produit.NomProduit | upper }}</h5>
+                <h5 class="card-title" style=" font-weight: auto;">{{ produit.NomProduit | upper }}</h5>
                 <h3 class="card-text h5 mt-auto"><strong>{{ produit.PrixProduit }}€</strong></h3>
-                <h2 class="d-flex justify-content-between align-item-center">{{ produit.descriptionProduit | lower }}</h2> 
+                <h2 class="d-flex justify-content-between align-item-center">{{ produit.descriptionProduit }}</h2> 
 
                 
 
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            Voir details produits
-          </button>
-
-          <!-- Modal -->
-          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  ...
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                  <button type="button" class="btn btn-primary">Compris</button>
-                </div>
-              </div>
-            </div>
-          </div>
-                 {# <a href="{{path('app_show')}}" class="btn btn-dark">View details</a> #}
       
                 <!-- Sélection pour choisir la pointure -->
          <div class="mb-3">
@@ -143,18 +116,6 @@
                         <!-- Ajoutez plus d'options de pointure au besoin -->
                     </select>
          </div>
-
-                <!-- Sélection pour choisir la couleur -->
-         <div class="mb-3">
-                    <label for="couleur">Couleur:</label>
-                    <div class="btn-group" role="group" aria-label="Choisir la couleur">
-                        <button type="radio" name="sameName" class="btn btn-primary">Bleu</button>
-                        <button type="radio"name="sameName" class="btn btn-secondary">Gris</button>
-                        <button type="radio" name="sameName"class="btn btn-success">Vert</button>
-                        <!-- Ajoutez plus de boutons pour d'autres couleurs au besoin -->
-                    </div>
-                </div>
-
                 <!-- Bouton pour ajouter au panier -->
                 <a href="{{ path('panier_add', {id: produit.id}) }}" class="btn btn-success">Ajouter au panier</a>
             </div>

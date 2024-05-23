@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints\Positive;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class TransporteursType extends AbstractType
 {
@@ -54,13 +55,17 @@ class TransporteursType extends AbstractType
             ])
             
             ->add('createdAt')
+            ->add('updatedAt', DateTimeType::class, [
+                'required' => false,
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Transporteurs::class,
+            'data_class' => null,
         ]);
     }
+    
 }

@@ -19,6 +19,8 @@
                                     <th>VilleAdresseLivraison</th>
                                     <th>CommentaireAdresseLivr</th>
                                     <th>Actions</th>
+                                    <!-- Nouvelle colonne pour le lien de sélection -->
+                                    <th>Sélectionner</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,10 +37,14 @@
                                             <a href="{{ path('app_adresse_livraison_edit', {'id': adresse_livraison.id}) }}" class="btn btn-sm btn-warning">Modifier</a>
                                             <a href="{{ path('app_adresse_livraison_delete', {'id': adresse_livraison.id}) }}" class="btn btn-sm btn-danger">Supprimer</a>
                                         </td>
+                                        <!-- Nouvelle cellule avec le lien de sélection -->
+                                        <td class="text-center">
+                                            <a href="{{ path('app_adresse_livraison_index', {'id': adresse_livraison.id}) }}" onclick="selectAddress('{{ adresse_livraison.id }}')"class="btn btn-sm btn-primary">Sélectionner</a>
+                                        </td>
                                     </tr>
                                 {% else %}
                                     <tr>
-                                        <td colspan="7">Aucun enregistrement trouvé</td>
+                                        <td colspan="8">Aucun enregistrement trouvé</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
@@ -51,5 +57,21 @@
     <div class="text-center mt-3">
         <a href="{{ path('app_adresse_livraison_new') }}" class="btn btn-success">Créer une nouvelle adresse</a>
     </div>
+    
+        <a href="{{ path('panier_index') }}" class="btn btn-dark">Revenir au panier</a>
+
 {% endblock %}
+{% block javascripts %}
+    <script>
+        function select(addressId) {
+            // Lorsque l'utilisateur sélectionne une adresse, cette fonction est appelée.
+            alert('Adresse sélectionnée : ' + addressId);
+            
+            // Redirection vers une nouvelle page pour le choix du transporteur avec l'ID de l'adresse sélectionnée
+            window.location.href = '{{ path ('app_transporteurs_index', {'addressId': addressId}) }}';
+        }
+    </script>
+{% endblock %}
+
+
 

@@ -28,9 +28,7 @@ class AdresseLivraisonType extends AbstractType
             //     'required' => true, // Assurez-vous que ce champ est requis
             // ])
             
-            // ->add('LibRueAdresseLivraison', null, [
-            //     'attr' => ['class' => 'form-control']
-            // ])
+            
             // ->add('CpAdresseLivraison', null, [
             //     'attr' => ['class' => 'form-control']
             // ])
@@ -56,4 +54,6 @@ class AdresseLivraisonType extends AbstractType
             'data_class' => AdresseLivraison::class,
         ]);
     }
+
+    
 }

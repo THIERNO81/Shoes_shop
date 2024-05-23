@@ -1,9 +1,153 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bienvenue Shoesshop{% endblock %}
+{% block title %}Bienvenue Shoesshop
+{% endblock %}
 
 {% block body %}
-<header class="bg-danger" style="height: 30vh">
-    <img class="w-100 h-200" src="{{ asset('images/PhotoAcceuil.jpg')}}" alt="">
-</header>
-{% endblock %}
+	{# <header class="bg-danger" style="height: 30vh"> #}
+	{# <img class="w-100 h-200" src="{{ asset('images/PhotoAcceuil.jpg')}}" alt=""> #}
+
+
+	<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img class="w-100 h-200" src="{{ asset('images/products/PhotoAcceuil1.jpg')}}" alt="">
+        </div>
+        <div class="carousel-item">
+            <img class="w-100 h-200" src="{{ asset('images/products/femme.jpg')}}" alt="">
+        </div>
+        <div class="carousel-item">
+            <img class="w-100 h-200" src="{{ asset('images/products/sandales.jpg')}}" alt="">
+        </div>
+        <div class="carousel-item">
+            <img class="w-100 h-200" src="{{ asset('images/products/photocaroussel.jpg')}}" alt="">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<script>
+    $(document).ready(function(){
+        // Démarrer le carrousel
+        $('#carouselExampleIndicators').carousel();
+
+        // Déclencher la transition de diapositive chaque seconde
+        setInterval(function(){
+            $('#carouselExampleIndicators').carousel('next');
+        }, 1000);
+
+        // Écouter l'événement "slid.bs.carousel"
+        $('#carouselExampleIndicators').on('slid.bs.carousel', function () {
+            // Vérifier si la dernière diapositive est atteinte
+            if ($('.carousel-inner .carousel-item:last').hasClass('active')) {
+                // Revenir au début du carrousel
+                $('#carouselExampleIndicators').carousel(1);
+            }
+        });
+    });
+</script>
+
+
+
+	<section
+		class="">
+		<!-- Footer -->
+		<footer
+			class="text-center text-white" style="background-color: #ffc107;">
+			<!-- Grid container -->
+			<div
+				class="container p-2 pb-0">
+				<!-- Section: CTA -->
+				<section class="">
+					<p class="d-flex justify-content-center align-items-center">
+						<strong class="me-6" style="color: black;">NOS PRODUITS</strong>
+					</p>
+
+				</section>
+				<!-- Section: CTA -->
+			</div>
+			<!-- Grid container -->
+
+
+		</footer>
+		<!-- Footer -->
+	</section>
+
+{# 
+	<div class="row row-cols-5 row-cols-ms-3 g-4">
+		<div class="col">
+			<div class="card">
+				<img src="{{ asset('images/products/imageProduit1.png')}}" class="card-img-top img-fluid" style="max-width: 100%; height: auto;" alt="...">
+				<div class="card-body">
+					<h5 class="card-title" style="font-size: 20px; font-weight: bold; color: #333;">Chaussure de Course</h5>
+					<h1 class="card-text" style="font-size: 20px; font-weight: normal; color: #555; line-height: 1.5;">
+						Chaussures De Course En Tricot Pour Hommes, Baskets Confortables À Lacets Antidérapantes Et Absorbant Les Chocs Pour Les Activités En Extérieur Des Hommes
+					</h1>
+					<div>
+						<a href="" class="btn btn-success">Ajouter au panier</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="col">
+			<div class="card">
+				<img src="{{ asset('images/products/photo1-vert-orange1-661e2c1ee6adb650562818.jpg')}}" class="card-img-top img-fluid" style="max-width: 100%; height: auto;" alt="...">
+				<h5 class="card-title" style="font-size: 20px; font-weight: bold; color: #333;">Chaussure de Course</h5>
+				<h1 class="card-text" style="font-size: 20px; font-weight: normal; color: #555; line-height: 1.5;">
+					Chaussures de Course en tricot pour hommes, baskets confortables à lacets antidérapantes et absorbant les chocs pour les activités en extérieur des hommes
+				</h1>
+				<div>
+					<a href="" class="btn btn-success">Ajouter au panier</a>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card">
+				<img src="{{ asset('images/products/photo1-noir-6621247485912449592596.jpg')}}" class="card-img-top img-fluid" style="max-width: 100%; height: auto;" alt="...">
+				<h5 class="card-title" style="font-size: 20px; font-weight: bold; color: #333;">Chaussure de Course</h5>
+				<h1 class="card-text" style="font-size: 20px; font-weight: normal; color: #555; line-height: 1.5;">
+					Chaussures De Course En Tricot Pour Hommes, Baskets Confortables À Lacets Antidérapantes Et Absorbant Les Chocs Pour Les Activités En Extérieur Des Hommes
+				</h1>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card">
+				<img src="{{ asset('images/products/photo3-blanc3-66267a295eb49350496683.jpg')}}" class="card-img-top img-fluid" style="max-width: 100%; height: auto;" alt="...">
+				<h5 class="card-title" style="font-size: 20px; font-weight: bold; color: #333;">Chaussure de Course</h5>
+				<h1 class="card-text" style="font-size: 20px; font-weight: normal; color: #555; line-height: 1.5;">
+					Chaussures De Course En Tricot Pour Hommes, Baskets Confortables À Lacets Antidérapantes Et Absorbant Les Chocs Pour Les Activités En Extérieur Des Hommes
+				</h1>
+			</div>
+		</div>
+        <div class="col">
+			<div class="card">
+				<img src="{{ asset('images/products/photo3-blanc3-66267a295eb49350496683.jpg')}}" class="card-img-top img-fluid" style="max-width: 100%; height: auto;" alt="...">
+				<h5 class="card-title" style="font-size: 20px; font-weight: bold; color: #333;">Chaussure de Course</h5>
+				<h1 class="card-text" style="font-size: 20px; font-weight: normal; color: #555; line-height: 1.5;">
+					Chaussures De Course En Tricot Pour Hommes, Baskets Confortables À Lacets Antidérapantes Et Absorbant Les Chocs Pour Les Activités En Extérieur Des Hommes
+				</h1>
+			</div>
+		</div>
+	</div>
+	 #}
+		
+
+		{# </header> #}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+CE8WTB0qBM9Hf7EAa/2ib4cDRflJw5bCk8JzFf" crossorigin="anonymous"></script>
+
+	{% endblock %}

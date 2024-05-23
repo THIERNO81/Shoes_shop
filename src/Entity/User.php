@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Panier;
 use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\Collection;
@@ -173,4 +174,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Panier", mappedBy="user")
+     */
+    private $panier;
+
+    public function getPanier()
+    {
+        return $this->panier;
+    }
+
 }

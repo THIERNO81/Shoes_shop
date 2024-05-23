@@ -29,7 +29,7 @@
                 <td>{{ produit.Taille }}</td>
                 {# <td>{{ produit.imagePath }}</td> #}
                 <td>
-                    <img src="{{ vich_uploader_asset(produit, 'imageFile') }}" alt="{{ produit.NomProduit }}" width="60" height="60">
+                    <img src="{{ vich_uploader_asset(produit, 'imageFile') }}" alt="{{ produit.NomProduit }}" class="img-thumbnail">
                 </td>
                 <td>
                     <a class="btn btn-secondary btn-sm btn-block mb-3" href="{{ path('admin_produit_edit', {'id': produit.id}) }}">Modifier</a>
