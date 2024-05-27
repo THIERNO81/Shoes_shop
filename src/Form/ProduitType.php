@@ -42,8 +42,6 @@ class ProduitType extends AbstractType
                 new Length([
                     'min' => 4,
                     'max' => 200,
-                    // 'minMessage' => 'Le nom du produit doit contenir au moins 5 caractères',
-                    // 'maxMessage' => 'Le nom du produit ne doit pas dépasser 500 caractères'
                 ])
             ]
         ])

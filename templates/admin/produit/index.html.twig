@@ -3,47 +3,63 @@
 {% block title %}Gestion des produits{% endblock %}
 
 {% block main %}
-    <h1>Gestion des produits</h1>
-    <a class="btn btn-success" href="{{ path('admin_produit_new') }}">Ajouter un produit</a>
-    <table class="table">
-        <thead>
-            <tr style="background-color: #FFA500; color: #fff;">
-                <th>Id</th>
-                <th>Nom du Produit</th>
-                <th>Description du Produit</th>
-                <th>Prix</th>
-                <th>StockDispo</th>
-                <th>Taille</th>
-                <th>ImagePath</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for produit in produits %}
-            <tr>
-                <td>{{ produit.id }}</td>
-                <td>{{ produit.NomProduit }}</td>
-                <td>{{ produit.DescriptionProduit }}</td>
-                <td>{{ produit.PrixProduit }}</td>
-                <td>{{ produit.StockDispo }}</td>
-                <td>{{ produit.Taille }}</td>
-                {# <td>{{ produit.imagePath }}</td> #}
-                <td>
-                    <img src="{{ vich_uploader_asset(produit, 'imageFile') }}" alt="{{ produit.NomProduit }}" class="img-thumbnail">
-                </td>
-                <td>
-                    <a class="btn btn-secondary btn-sm btn-block mb-3" href="{{ path('admin_produit_edit', {'id': produit.id}) }}">Modifier</a>
-                    <form class="d-inline" method="POST" action="{{ path('admin_produit_delete', {'id': produit.id}) }}">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ produit.id) }}">
-                        <input type="submit" class="btn btn-danger btn-block" value="Supprimer">
-                    </form>
-                </td>
-            </tr>
-            {% else %}
-            <tr>
-                <td colspan="8">Aucun enregistrement trouvé</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <!-- Titre de la page -->
+	<h1>Gestion des produits</h1>
+	
+	<!-- Bouton d'ajout de produit -->
+	<a class="btn btn-success" href="{{ path('admin_produit_new') }}">Ajouter un produit</a>
+	
+	<!-- Tableau pour afficher les produits -->
+	<table class="table">
+		<thead>
+			<tr style="background-color: #FFA500; color: #fff;">
+				<th>Id</th>
+				<th>Nom du Produit</th>
+				<th>Description du Produit</th>
+				<th>Prix</th>
+				<th>StockDispo</th>
+				<th>Taille</th>
+				<th>Image</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- Boucle pour afficher chaque produit -->
+			{% for produit in produits %}
+				<tr>
+					<td>{{ produit.id }}</td>
+					<td>{{ produit.NomProduit }}</td>
+					<td>{{ produit.DescriptionProduit }}</td>
+					<td>{{ produit.PrixProduit }}</td>
+					<td>{{ produit.StockDispo }}</td>
+					<td>{{ produit.Taille }}</td>
+					<td>
+						<!-- Affichage de l'image du produit -->
+						<img src="{{ vich_uploader_asset(produit, 'imageFile') }}" alt="{{ produit.NomProduit }}" class="img-thumbnail product-image">
+					</td>
+					<!-- Styles CSS pour ajuster la taille de l'image -->
+					<style>
+						.product-image {
+							width: 100px; 
+							height: auto;
+						}
+					</style>
+					<td>
+						<!-- Bouton pour modifier le produit -->
+						<a class="btn btn-secondary btn-sm btn-block mb-3" href="{{ path('admin_produit_edit', {'id': produit.id}) }}">Modifier</a>
+						<!-- Formulaire pour supprimer le produit -->
+						<form class="d-inline" method="POST" action="{{ path('admin_produit_delete', {'id': produit.id}) }}">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ produit.id) }}">
+							<input type="submit" class="btn btn-danger btn-block" value="Supprimer">
+						</form>
+					</td>
+				</tr>
+			{% else %}
+				<!-- Message en cas d'absence de produits -->
+				<tr>
+					<td colspan="8">Aucun enregistrement trouvé</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}

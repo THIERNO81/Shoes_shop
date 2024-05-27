@@ -1,186 +1,191 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <section class="row">
-            <div class="col-12">
-                <h1>Mon Panier</h1>
+	<div class="container">
+		<section class="row">
+			<div class="col-12">
+				<h1>Mon Panier</h1>
 
-                <table class="table">
-                    <thead class="bg-primary text-white header-row">
-                        <tr>
-                            <th>Id</th>
-                            <th>Produit</th>
-                            <th>Prix unitaire</th>
-                            <th>Quantité</th>
-                            <th>Sous-total</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in data %}
-                            <tr>
-                                <td>{{ item.produit.id }}</td>
-                                <td>{{ item.produit.nomProduit }}</td>
-                                <td>{{ item.produit.prixProduit }} €</td>
-                                <td>{{ item.quantity }}</td>
-                                <td>{{ item.sousTotal }} €</td>
-                                <td>
-                                    <a href="{{ path('panier_remove', {id: item.produit.id}) }}" class="btn btn-warning">-</a>
-                                    <a href="{{ path('panier_add', {id: item.produit.id}) }}" class="btn btn-success">+</a>
-                                    <a href="{{ path('panier_delete', {id: item.produit.id}) }}" class="btn btn-danger">Supprimer</a>
-                                </td>
-                            </tr>
-							
-                        {% endfor %}
-                    </tbody>
-					<a href="{{ path('app_catalog') }}">retour aux produit</a>
-                    <tfoot class="bg-light total-rows">
-                        <tr class="total-row">
-                            <td colspan="5"><strong>Total HT</strong></td>
-                            <td>{{ totalHT }} €</td>
-                        </tr>
-                        <tr class="total-row">
-                            <td colspan="5"><strong>TVA (20%)</strong></td>
-                            <td>{{ tva }} €</td>
-                        </tr>
-                        <tr class="total-row">
-                            <td colspan="5"><strong>Total TTC</strong></td>
-                            <td>{{ totalTTC }} €</td>
-                        </tr>
-                    </tfoot>
-                </table>
-				
+				<table class="table">
+					<thead class="bg-primary text-white header-row">
+						<tr>
+							<th>Id</th>
+							<th>Produit</th>
+							<th>Prix unitaire</th>
+							<th>Quantité</th>
+							<th>Sous-total</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in data %}
+							<tr>
+								<td>{{ item.produit.id }}</td>
+								<td>{{ item.produit.nomProduit }}</td>
+								<td>{{ item.produit.prixProduit }}
+									€</td>
+								<td>{{ item.quantity }}</td>
+								<td>{{ item.sousTotal }}
+									€</td>
+								<td>
+									<a href="{{ path('panier_remove', {id: item.produit.id}) }}" class="btn btn-warning">-</a>
+									<a href="{{ path('panier_add', {id: item.produit.id}) }}" class="btn btn-success">+</a>
+									<a href="{{ path('panier_delete', {id: item.produit.id}) }}" class="btn btn-danger">Supprimer</a>
+								</td>
+							</tr>
 
+						{% endfor %}
+					</tbody>
+					<a href="{{ path('app_catalog') }}" class="btn btn-secondary">Retour aux produits</a>
+					<tfoot
+						class="bg-light total-rows">
+						<!-- Ligne pour le total HT avec arrière-plan gris foncé et texte en gras -->
+						<tr class="total-row" style="background-color: #424242; color: white; font-weight: bold;">
+							<td colspan="5">
+								<strong>Total HT</strong>
+							</td>
+							<td>{{ totalHT }}
+								€</td>
+						</tr>
+						<!-- Ligne pour la TVA avec arrière-plan gris foncé et texte en gras -->
+						<tr class="total-row" style="background-color: #424242; color: white; font-weight: bold;">
+							<td colspan="5">
+								<strong>TVA (20%)</strong>
+							</td>
+							<td>{{ tva }}
+								€</td>
+						</tr>
+						<!-- Ligne pour le total TTC avec arrière-plan gris foncé et texte en gras -->
+						<tr class="total-row" style="background-color: #424242; color: white; font-weight: bold;">
+							<td colspan="5">
+								<strong>Total TTC</strong>
+							</td>
+							<td>{{ totalTTC }}
+								€</td>
+						</tr>
+					</tfoot>
 
-                <a href="{{ path('panier_empty') }}" class="btn btn-danger">Vider le panier</a>
-                <a href="{{ path('app_commande_add') }}" class="btn btn-success">Valider mon panier</a>
-				
-            </div>
-        </section>
-    </div>
-
-
-
-
-
-
-
-
-
+				</table>
 
 
-{# 
-			
-            
-            	<div class="row">
-					<!-- Première carte -->
-					<div class="col-md-6">
-						<div class="card">
-							<div class="card-body">
-								<h5 class="card-title">Détails du Prix</h5>
-								<p class="card-text" style="font-size: 1.25rem; margin-bottom: 0;">Prix HT : €100</p>
-								<p class="card-text" style="font-size: 1.25rem; margin-bottom: 0;">TVA (20%) : €20</p>
-								<p class="card-text" style="font-size: 1.25rem; margin-bottom: 0;">Livraison : €10</p>
-								<hr
-								style="margin-top: 0; margin-bottom: 0;">
-								<!-- Ligne de séparation sans marge -->
-								<p class="card-text" style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0;">Prix TTC : €130</p>
-							</div>
-						</div>
-					</div>
-
-					<!-- Deuxième carte -->
-					<div class="col-md-6">
-						<div class="card">
-							<div class="card-body">
-								<h5 class="card-title">Livraison</h5>
-								<form>
-									<div class="mb-3">
-										<label for="adresse" class="form-label">Adresse de livraison</label>
-										<input type="text" class="form-control" id="adresse" name="adresse" placeholder="Entrez votre adresse">
-									</div>
-									<div class="mb-3">
-										<label for="ville" class="form-label">Ville</label>
-										<input type="text" class="form-control" id="ville" name="ville" placeholder="Entrez votre ville">
-									</div>
-									<div class="mb-3">
-										<label for="codepostal" class="form-label">Code Postal</label>
-										<input type="text" class="form-control" id="codepostal" name="codepostal" placeholder="Entrez votre code postal">
-									</div>
-									<button type="submit" class="btn btn-primary">Valider</button>
-								</form>
-							</div>
-						</div>
-					</div>
-
-<div class="col-md-6">
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Transporteurs</h5>
-							<ol class="list-group list-group-numbered">
-								<li class="list-group-item d-flex justify-content-between align-items-start">
-									<div class="ms-2 me-auto">
-										<div class="fw-bold" style="font-size: 1.25rem; margin-bottom: 0;">Subheading</div>
-										Cras justo odio
-									</div>
-									<span class="badge bg-primary rounded-pill" style="font-size: 1.25rem; margin-bottom: 0;">14</span>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-start">
-									<div class="ms-2 me-auto">
-										<div class="fw-bold" style="font-size: 1.25rem; margin-bottom: 0;">Subheading</div>
-										Cras justo odio
-									</div>
-									<span class="badge bg-primary rounded-pill" style="font-size: 1.25rem; margin-bottom: 0;">14</span>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-start">
-									<div class="ms-2 me-auto">
-										<div class="fw-bold" style="font-size: 1.25rem; margin-bottom: 0;">Subheading</div>
-										Cras justo odio
-									</div>
-									<span class="badge bg-primary rounded-pill" style="font-size: 1.25rem; margin-bottom: 0;">14</span>
-								</li>
-							</ol>
-						</div>
-					</div>
-				</di<div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Récapitulatif d'Utilisation</h5>
-                            <p class="card-text" style="font-size: 1.25rem; margin-bottom: 0;">Nom : </p>
-                            <p class="card-text" style="font-size: 1.25rem; margin-bottom: 0;">Prenom : 15</p>
-                            <p class="card-text" style="font-size: 1.25rem; margin-bottom: 0;">Adresse: /p>
-                            <hr style="margin-top: 10px; margin-bottom: 10px;">
-                        
-                        </div>
-                    </div>
-                </div>
-				</div>
-
-				<!-- Troisième carte -->
-				
-<hr>
-                <div class="row">
-    <!-- Carte d'information -->
-    
-</div>
-
+				<a href="{{ path('panier_empty') }}" class="btn btn-danger">Vider le panier</a>
+				<a href="{{ path('app_commande_add') }}" class="btn btn-success">Valider mon panier</a>
 
 			</div>
 		</section>
-	</div> #}
-
+	</div>
 
 
 	{# 
-								    <div class="container">
-								        <div class="row">
-								            <div class"col-md-3">
-								                Forumalire: Adresse et Livreur
-								            </div>
-								            <div class"col-md-9">
-								                Recapitulatif de la Commande
-								        </div>
-								      </div>
-								    </div> #}
+				
+	            
+	            	<div class="row">
+						<!-- Première carte -->
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">Détails du Prix</h5>
+									<p class="card-text" style="font-size: 1.25rem; margin-bottom: 0;">Prix HT : €100</p>
+									<p class="card-text" style="font-size: 1.25rem; margin-bottom: 0;">TVA (20%) : €20</p>
+									<p class="card-text" style="font-size: 1.25rem; margin-bottom: 0;">Livraison : €10</p>
+									<hr
+									style="margin-top: 0; margin-bottom: 0;">
+									<!-- Ligne de séparation sans marge -->
+									<p class="card-text" style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0;">Prix TTC : €130</p>
+								</div>
+							</div>
+						</div>
+	
+						<!-- Deuxième carte -->
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">Livraison</h5>
+									<form>
+										<div class="mb-3">
+											<label for="adresse" class="form-label">Adresse de livraison</label>
+											<input type="text" class="form-control" id="adresse" name="adresse" placeholder="Entrez votre adresse">
+										</div>
+										<div class="mb-3">
+											<label for="ville" class="form-label">Ville</label>
+											<input type="text" class="form-control" id="ville" name="ville" placeholder="Entrez votre ville">
+										</div>
+										<div class="mb-3">
+											<label for="codepostal" class="form-label">Code Postal</label>
+											<input type="text" class="form-control" id="codepostal" name="codepostal" placeholder="Entrez votre code postal">
+										</div>
+										<button type="submit" class="btn btn-primary">Valider</button>
+									</form>
+								</div>
+							</div>
+						</div>
+	
+	<div class="col-md-6">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">Transporteurs</h5>
+								<ol class="list-group list-group-numbered">
+									<li class="list-group-item d-flex justify-content-between align-items-start">
+										<div class="ms-2 me-auto">
+											<div class="fw-bold" style="font-size: 1.25rem; margin-bottom: 0;">Subheading</div>
+											Cras justo odio
+										</div>
+										<span class="badge bg-primary rounded-pill" style="font-size: 1.25rem; margin-bottom: 0;">14</span>
+									</li>
+									<li class="list-group-item d-flex justify-content-between align-items-start">
+										<div class="ms-2 me-auto">
+											<div class="fw-bold" style="font-size: 1.25rem; margin-bottom: 0;">Subheading</div>
+											Cras justo odio
+										</div>
+										<span class="badge bg-primary rounded-pill" style="font-size: 1.25rem; margin-bottom: 0;">14</span>
+									</li>
+									<li class="list-group-item d-flex justify-content-between align-items-start">
+										<div class="ms-2 me-auto">
+											<div class="fw-bold" style="font-size: 1.25rem; margin-bottom: 0;">Subheading</div>
+											Cras justo odio
+										</div>
+										<span class="badge bg-primary rounded-pill" style="font-size: 1.25rem; margin-bottom: 0;">14</span>
+									</li>
+								</ol>
+							</div>
+						</div>
+					</di<div class="col-md-6">
+	                    <div class="card">
+	                        <div class="card-body">
+	                            <h5 class="card-title">Récapitulatif d'Utilisation</h5>
+	                            <p class="card-text" style="font-size: 1.25rem; margin-bottom: 0;">Nom : </p>
+	                            <p class="card-text" style="font-size: 1.25rem; margin-bottom: 0;">Prenom : 15</p>
+	                            <p class="card-text" style="font-size: 1.25rem; margin-bottom: 0;">Adresse: /p>
+	                            <hr style="margin-top: 10px; margin-bottom: 10px;">
+	                        
+	                        </div>
+	                    </div>
+	                </div>
+					</div>
+	
+					<!-- Troisième carte -->
+					
+	<hr>
+	                <div class="row">
+	    <!-- Carte d'information -->
+	    
+	</div>
+	
+	
+				</div>
+			</section>
+		</div> #}
+
+
+	{# 
+									    <div class="container">
+									        <div class="row">
+									            <div class"col-md-3">
+									                Forumalire: Adresse et Livreur
+									            </div>
+									            <div class"col-md-9">
+									                Recapitulatif de la Commande
+									        </div>
+									      </div>
+									    </div> #}
 {% endblock %}

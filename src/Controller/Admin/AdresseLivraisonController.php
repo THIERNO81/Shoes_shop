@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller\Admin;
-
 use App\Entity\AdresseLivraison;
 use App\Form\AdresseLivraisonType;
 use App\Repository\AdresseLivraisonRepository;
@@ -13,7 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
-
 #[Route('/adresse/livraison')]
 class AdresseLivraisonController extends AbstractController
 {
@@ -25,7 +23,6 @@ class AdresseLivraisonController extends AbstractController
             'adresse_livraisons' => $adresseLivraisonRepository->findAll(),
         ]);
     }
-
     // Méthode pour créer une nouvelle adresse de livraison
     #[Route('/new', name: 'app_adresse_livraison_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -33,27 +30,21 @@ class AdresseLivraisonController extends AbstractController
         $adresseLivraison = new AdresseLivraison();
         $form = $this->createForm(AdresseLivraisonType::class, $adresseLivraison);
         $form->handleRequest($request);
-    
         if ($form->isSubmitted() && $form->isValid()) {
             // Définition de la date de création et de mise à jour
             $adresseLivraison->setCreatedAt(new DateTimeImmutable());
             $adresseLivraison->setUpdatedAt(new DateTimeImmutable());
             $adresseLivraison->setUser($this->getUser());
-    
             $entityManager->persist($adresseLivraison);
             $entityManager->flush();
-    
             $this->addFlash("success", "L'adresse a été ajoutée avec succès.");
-    
             return $this->redirectToRoute('app_adresse_livraison_index');
         }
-    
         return $this->render('adresse_livraison/new.html.twig', [
             'adresse_livraison' => $adresseLivraison,
             'form' => $form->createView(), // Retourner le formulaire pour le template
         ]);
     }
-
     // Méthode pour afficher une adresse de livraison spécifique
     #[Route('/{id}', name: 'app_adresse_livraison_show', methods: ['GET'])]
     public function show(AdresseLivraison $adresseLivraison): Response
@@ -62,7 +53,6 @@ class AdresseLivraisonController extends AbstractController
             'adresse_livraison' => $adresseLivraison,
         ]);
     }
-
     // Méthode pour éditer une adresse de livraison existante
     #[Route('/{id}/edit', name: 'app_adresse_livraison_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, AdresseLivraison $adresseLivraison, EntityManagerInterface $entityManager): Response
@@ -75,7 +65,6 @@ class AdresseLivraisonController extends AbstractController
 
             return $this->redirectToRoute('app_adresse_livraison_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('adresse_livraison/edit.html.twig', [
             'adresse_livraison' => $adresseLivraison,
             'form' => $form,

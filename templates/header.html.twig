@@ -23,13 +23,13 @@
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 							<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="{{path('app_welcome')}}">Accueil</a>
+								<a class="nav-link active" aria-current="page" href="{{path('app_welcome')}}"><i class="fa fa-home" aria-hidden="true"></i>Accueil</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="{{ path('app_catalog') }}">Produits</a>
+								<a class="nav-link active" aria-current="page" href="{{ path('app_catalog') }}"><i class="fa fa-product-hunt" aria-hidden="true"></i>Produits</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="{{ path('contact_index')}}">Contactez-nous</a>
+								<a class="nav-link active" aria-current="page" href="{{ path('contact_index')}}"><i class="fa fa-address-book" aria-hidden="true"></i>Contactez-nous</a>
 							</li>
 						</ul>
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -53,11 +53,11 @@
 										<a class="nav-link" href="{{path('admin_home')}}">Back Office</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="{{path('app_user_index')}}">Mon compte</a>
+										<a class="nav-link" href="{{path('app_user_index')}}"><i class="fa fa-sign-in" aria-hidden="true"></i>Mon compte</a>
 									</li>
 								{% endif %}
 								<li class="nav-item">
-									<a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
+									<a class="nav-link" href="{{path('app_logout')}}"><i class="fa fa-sign-out" aria-hidden="true"></i>Déconnexion</a>
 								</li>
 							{% else %}
 								<li class="nav-item">

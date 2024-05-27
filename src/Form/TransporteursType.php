@@ -27,9 +27,7 @@ class TransporteursType extends AbstractType
                 ],
                 'required' => false,
                 'constraints' => [
-                    // new NotBlank([
-                    //     'message' => 'Veuillez saisir la description du produit'
-                    // ]),
+                
                     new Length([
                         'max' => 500,
                         'maxMessage' => 'Veuillez saisir moins de 500 caractères'
@@ -60,7 +58,6 @@ class TransporteursType extends AbstractType
             ])
         ;
     }
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

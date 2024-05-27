@@ -9,11 +9,11 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>NameTransport</th>
+                <th>Nom du transporteur</th>
                 <th>Description</th>
-                <th>PrixTransport</th>
-                <th>CreatedAt</th>
-                <th>actions</th>
+                <th>Prix du transport</th>
+                <th>Date de création</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -22,7 +22,7 @@
                 <td>{{ transporteur.id }}</td>
                 <td>{{ transporteur.nameTransport }}</td>
                 <td>{{ transporteur.description }}</td>
-                <td>{{ transporteur.prixTransport }} </td>
+                <td>{{ transporteur.prixTransport }}</td>
                 <td>{{ transporteur.createdAt ? transporteur.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_transporteurs_show', {'id': transporteur.id}) }}" class="btn btn-primary btn-sm">Afficher</a>

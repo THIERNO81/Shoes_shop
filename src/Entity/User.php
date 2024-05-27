@@ -26,7 +26,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private array $roles = [];
-
     /**
      * @var string The hashed password
      */
@@ -45,13 +44,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $adresseLivraison = null;
 
-    
-
     public function getId(): ?int
     {
         return $this->id;
     }
-
     public function getEmail(): ?string
     {
         return $this->email;

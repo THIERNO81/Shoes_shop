@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\User;
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -19,13 +18,19 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class RegistrationFormType extends AbstractType
 {
+    // Méthode pour construire le formulaire
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            // Champ pour le nom
             ->add('nom', TextType::class)
+            // Champ pour le prénom
             ->add('prenom', TextType::class)
+            // Champ pour l'email
             ->add('email', EmailType::class)
+            // Champ pour le numéro de téléphone
             ->add('numDeTel', TelType::class)
+            // Champ pour accepter les conditions, non mappé à l'entité User
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -34,6 +39,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            // Champ pour le mot de passe avec répétition pour confirmation
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => "Le mot de passe doit être identique à sa confirmation",
@@ -45,10 +51,11 @@ class RegistrationFormType extends AbstractType
         ;
     }
 
+    // Configuration des options du formulaire
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => User::class, // Le formulaire est mappé à l'entité User
         ]);
     }
 }

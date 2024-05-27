@@ -1,140 +1,135 @@
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome ShoesShop!{% endblock %}</title>
+        <title>{% block title %}Bienvenue sur ShoesShop!{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" 
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-yo/j2hOofE+LQkz+6cdZVVyD8AQ7mOjqPO+xnn7UE/5TGFxOf5u7lfycdjfrRgEjY7TZnHBZ+pJg9j9iE6k2lg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         
         {% block stylesheets %}{% endblock %}    
-       
     </head>
     <body>
       <nav class="navbar navbar-expand-lg nav-bg">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{{path('app_welcome')}}">
-          <img src="{{ asset('images/logoDooke.jpg') }}" alt="logoDooke.jpg" height="85">
+          <a class="navbar-brand" href="{{ path('app_welcome') }}">
+            <img src="{{ asset('images/logoDooke.jpg') }}" alt="logoDooke.jpg" height="85">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{{ path('app_welcome') }}">Accueil</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{{ path('app_catalog') }}">Produits</a>
-                </li>
-          
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{{ path('contact_index') }}">Contact</a>
-                </li>
-                             
-              </ul>
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('panier_index') }}">Panier</a>
-                </li>
-
-                {% if app.user %}
-                  {% if is_granted('ROLE_ADMIN') %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{path('admin_home')}}">Back Office</a>
-                    </li>
-                                
-                      
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{path('app_user_index')}}">Mon compte</a>
-                    </li>
-                  {% endif %}
-                  
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{{ path('app_welcome') }}">Accueil</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="{{ path('app_catalog') }}">Produits</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="{{ path('contact_index') }}">Contact</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="{{ path('panier_index') }}">
+                  <i class="fas fa-shopping-cart"></i> Panier
+                </a>
+              </li>
+              {% if app.user %}
+                {% if is_granted('ROLE_ADMIN') %}
                   <li class="nav-item">
-                      <a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
-                  </li>
-
-                {% else %}
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
+                    <a class="nav-link" href="{{ path('admin_home') }}">Back Office</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="{{path('app_register')}}">Inscription</a>
-                  </li>    
-                 {% endif %}
-                
-              </ul>
-              <form class="d-flex" role="rechercher">
-                <input class="form-control me-2" type="Rechercher" placeholder="Rechercher" aria-label="rechercher">
-                <button class="btn btn-outline-success" type="submit">Rechercher</button>
-              </form>
-            </div>
+                    <a class="nav-link" href="{{ path('app_user_index') }}">Mon compte</a>
+                  </li>
+                {% endif %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+                </li>
+              {% endif %}
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Rechercher">
+              <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i> Rechercher</button>
+            </form>
           </div>
+        </div>
       </nav>
 
-      <main class="text-center text-primary fst-italic my-2">
-        {%block h1 %}{% endblock %}</h1>
+      <main class="text-center text-black fst-italic my-4" style="background-color: #ccc; border: 2px solid #ffc107; padding: 10px;">
+        {% block h1 %}
+          <h1 class="display-4 fw-bold">Bienvenue sur DOOKE S.A.S</h1>
+        {% endblock %}
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-8">
+             <p class="lead mt-3 fw-bold">
+                Découvrez notre vaste sélection de chaussures de haute qualité pour toutes les occasions. Que vous cherchiez des baskets confortables, des chaussures élégantes ou des bottes résistantes, nous avons tout ce qu'il vous faut pour compléter votre garde-robe. Profitez de nos offres exclusives et d'une expérience d'achat en ligne exceptionnelle!
+              </p>
+              {# <a href="{{ path('app_catalog') }}" class="btn btn-primary btn-lg mt-3">Découvrez nos produits</a> #}
+            </div>
+          </div>
+        </div>
         {% block body %}{% endblock %}
       </main>
  
- 
-    <!-- Début du conteneur de grille Bootstrap -->
-<div class="container-fluid">
-
-    <h1 class="text-center my-3" style="background-color: #ccc; border: 2px solid #ffc107; padding: 10px;">Catalogue des produits</h1>
-
-    <div class="row">
-        <!-- Boucle sur les produits -->
-        {% for produit in produits %}
-        <div class="col-3 mb-3"> 
-        
+      <div class="container-fluid">
+        <h1 class="text-center my-3" style="background-color: #ccc; border: 2px solid #ffc107; padding: 10px;">Catalogue des produits</h1>
+        <div class="row">
+          <!-- Boucle sur les produits -->
+          {% for produit in produits %}
+          <div class="col-12 col-md-6 col-lg-3 mb-3">
             <!-- Carte Bootstrap pour chaque produit -->
             <div class="card mb-3">
               <div class="row g-0">
                 <div class="col-md-4">
-                  <img src="{{ asset('images/products/' ~ produit.imagePath) }}" alt="" class="img-fluid rounded mx-auto d-block" style="max-width: 100%; height: auto; box-shadow : 2px 2px 6px; cursor: pointer;" onclick="window.location.href='{{ path('app_catalog', {id: produit.id}) }}">
+                  <a href="{{ path('admin_produit_show', {id: produit.id}) }}">
+                    <img src="{{ asset('images/products/' ~ produit.imagePath) }}" alt="{{ produit.NomProduit }}" class="img-fluid rounded mx-auto d-block" style="max-width: 100%; height: auto; box-shadow: 2px 2px 6px;">
+                  </a>
                 </div>
-              <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title" style=" font-weight: auto;">{{ produit.NomProduit | upper }}</h5>
-                <h3 class="card-text h5 mt-auto"><strong>{{ produit.PrixProduit }}€</strong></h3>
-                <h2 class="d-flex justify-content-between align-item-center">{{ produit.descriptionProduit }}</h2> 
-
-                
-
-      
-                <!-- Sélection pour choisir la pointure -->
-         <div class="mb-3">
-            <label for="pointure">Pointure:</label>
-              <select class="form-select" id="pointure" name="pointure">
-                 <option value="39">39</option>
-                 <option value="41">41</option>
-                 <option value="42">42</option>
-                 <option value="43">43</option>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title" style="font-size: 1rem;">{{ produit.NomProduit }}</h5>
+                    <h3 class="card-text h5 mt-auto" style="font-size: 1.5rem; color: red"><strong>{{ produit.PrixProduit }}€</strong></h3>
+                    {# <p class="card-text" style="font-size: 1rem;">{{ produit.descriptionProduit }}</p> #}
+                    <!-- Sélection pour choisir la pointure -->
+                    <div class="mb-3">
+                      <label for="pointure" class="form-label">Pointure:</label>
+                      <select class="form-select" id="pointure" name="pointure">
+                        <option value="39">39</option>
+                        <option value="41">41</option>
+                        <option value="42">42</option>
+                        <option value="43">43</option>
                         <!-- Ajoutez plus d'options de pointure au besoin -->
-                    </select>
-         </div>
-                <!-- Bouton pour ajouter au panier -->
-                <a href="{{ path('panier_add', {id: produit.id}) }}" class="btn btn-success">Ajouter au panier</a>
+                      </select>
+                    </div>
+                    <!-- Bouton pour ajouter au panier -->
+                    <a href="{{ path('panier_add', {id: produit.id}) }}" class="btn btn-success">
+                      <i class="fas fa-cart-plus"></i> Ajouter au panier
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+          {% endfor %}
+          <!-- Fin de la boucle sur les produits -->
         </div>
-    </div>
-</div>
-</div>
-
-        {% endfor %}
-        <!-- Fin de la boucle sur les produits -->
-    </div>
-</div>
+      </div>
         
-         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-        {% block javascripts %}{% endblock %}
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+      {% block javascripts %}{% endblock %}
     </body>
-
     {# {% include 'footer.html.twig' %} #}
-
-
 </html>
-
