@@ -6,15 +6,18 @@
 <div class="container">
     <div class="row align-items-center justify-content-center">
         <div class="col-md-6">
+            {# Affiche les notifications de succès #}
             {% for notification in app.flashes('success') %}
                 <div class="alert alert-success text-center">{{ notification }}</div>
             {% endfor %}
 
             <form method="post" class="mt-3">
+                {# Affiche les erreurs de connexion #}
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
 
+                {# Affiche un message si l'utilisateur est déjà connecté #}
                 {% if app.user %}
                     <div class="mb-3">
                         Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
@@ -22,17 +25,29 @@
                 {% endif %}
 
                 <h1 class="h3 mb-3 font-weight-normal text-center">Veuillez vous connecter</h1>
+                
+                {# Champ de saisie pour l'email #}
                 <div class="mb-3">
                     <label for="inputEmail" class="visually-hidden">Email</label>
                     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="Email">
                 </div>
+                
+                {# Champ de saisie pour le mot de passe #}
                 <div class="mb-3">
                     <label for="inputPassword" class="visually-hidden">Mot de passe</label>
                     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Mot de passe">
                 </div>
 
+                {# Case à cocher pour l'option 'Se souvenir de moi' #}
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="remember_me" name="_remember_me">
+                    <label class="form-check-label" for="remember_me">Se souvenir de moi</label>
+                </div>
+
+                {# Champ caché pour le token CSRF #}
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
+                {# Bouton de soumission du formulaire #}
                 <button class="btn btn-lg btn-primary" type="submit">
                     Connexion
                 </button>

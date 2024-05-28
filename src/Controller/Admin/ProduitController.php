@@ -22,7 +22,6 @@ class ProduitController extends AbstractController
             'produits' => $produitRepository->findAll(),
         ]);
     }
-
     #[Route('/new', name: 'admin_produit_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -49,7 +48,6 @@ class ProduitController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
     #[Route('/{id}', name: 'admin_produit_show', methods: ['GET'])]
     public function show(Produit $produit): Response
     {
@@ -58,7 +56,6 @@ class ProduitController extends AbstractController
             'produit' => $produit,
         ]);
     }
-
     #[Route('/{id}/edit', name: 'admin_produit_edit', methods: ['GET', 'POST'])]
 public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
 {
@@ -75,8 +72,6 @@ public function edit(Request $request, Produit $produit, EntityManagerInterface 
         'formProduit' => $form->createView(), // Assurez-vous que le formulaire est passé ici
     ]);
 }
-
-
     #[Route('/{id}', name: 'admin_produit_delete', methods: ['POST'])]
     public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
@@ -90,7 +85,6 @@ public function edit(Request $request, Produit $produit, EntityManagerInterface 
         // Redirige vers la liste des produits
         return $this->redirectToRoute('admin_produit_index', [], Response::HTTP_SEE_OTHER);
     }
-
     #[Route('/{id}/fiche', name: 'admin_produit_fiche', methods: ['GET'])]
     public function fiche(Request $request, Produit $produit): Response
     {

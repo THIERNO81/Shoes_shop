@@ -20,6 +20,13 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 #[Route('/commande', name: 'app_commande_')]
 class CommandeController extends AbstractController
 {
+
+    public function __construct(
+        private ProduitRepository $produitRepository
+    )
+    {
+        
+    }
     #[Route('/show', name: 'add')]
     public function add(SessionInterface $session, ProduitRepository $produitRepository, EntityManagerInterface $em, Request $request): Response
     {
@@ -43,6 +50,17 @@ class CommandeController extends AbstractController
             return $this->redirectToRoute('panier_index');
         }  
 
+        $produits = [];
+
+        foreach ($panier as $id => $quantity) {
+            $produit = $this->produitRepository->find($id);
+
+            if ($produit) 
+            {
+                $produits[] = [$produit, $quantity];
+            }
+        }
+
 
         //le panier n'est pas vide, on crée la commande
         $commande = new commande();
@@ -64,6 +82,7 @@ class CommandeController extends AbstractController
 
         return $this->render('commande/index.html.twig', [
             'form' => $form->createView(),
+            'produits' => $produits
         ]);
         
     }
